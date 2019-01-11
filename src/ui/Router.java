@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Router
@@ -18,6 +20,7 @@ public class Router
     /** Point d'acc�s pour l'instance unique du singleton */
     public static Router getInstance()
     {   
+    	
     	if (INSTANCE == null)
         {   
         	INSTANCE = new Router(); 
@@ -39,8 +42,8 @@ public class Router
 
     public void activate(String name){ 	
     	try {
-			GUI.primaryStage.getScene().setRoot(FXMLLoader.load(getClass().getResource(INSTANCE.getScreenMap().get(name))));
-		} catch (IOException e) {	
+			((BorderPane)(GUI.primaryStage.getScene().lookup("#main-content"))).getChildren().add(FXMLLoader.load(getClass().getResource(INSTANCE.getScreenMap().get(name))));
+		} catch (Exception e) {	
 			e.printStackTrace();
 		}
     }

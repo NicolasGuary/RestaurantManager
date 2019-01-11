@@ -20,4 +20,8 @@ public class HomeController {
 	public void handleReadConsummable(){
 		router.activate("readAllConsummables");
 	}
+
+	public void handleHome(){
+		router.activate("home");
+	}
 }

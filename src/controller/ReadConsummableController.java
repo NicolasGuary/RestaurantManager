@@ -20,7 +20,6 @@ public class ReadConsummableController {
 	
     public void initialize() {
     	ArrayList<Consummable> currentSelection = cf.readAll("");
-    	System.out.println(consummablesList);
     	currentSelection.forEach((n) -> consummablesList.getChildren().add(new Label(n.getNameConsummable())));
     }
 	

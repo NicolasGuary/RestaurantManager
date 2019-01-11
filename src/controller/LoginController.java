@@ -60,4 +60,9 @@ public class LoginController {
         	confirmationMessage.setTextFill(Color.web("red"));
         }
     }
+    
+    @FXML
+    private void handleCancel() {
+		router.activate("home");
+    }
 }

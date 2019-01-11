@@ -31,8 +31,7 @@ public class ConsummableFacade {
 		 if(!this.cdao.readAll(category).isEmpty()){
 			 this.currentSelection = this.cdao.readAll(category);
 		 }
-		 System.out.println("Cons : ");
-		 currentSelection.forEach((n) -> System.out.println(n.getNameConsummable())); 
+		 
 		 return this.currentSelection;
 	 }
 	 

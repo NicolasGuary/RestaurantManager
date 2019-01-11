@@ -13,18 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane fx:controller="controller.LoginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <BorderPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c#1c1c1c; -fx-padding: 0 0 0 10;" BorderPane.alignment="CENTER">
-         <left>
-            <ImageView fitHeight="25.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@img/logo.png" />
-               </image>
-            </ImageView>
-         </left>
-      </BorderPane>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
          <opaqueInsets>
@@ -39,16 +28,16 @@
                      </font>
                   </Label>
                   <Label text="Username" />
-                  <TextField style="-fx-max-width: 300;" fx:id="loginTF"/>
+                  <TextField fx:id="loginTF" style="-fx-max-width: 300;" />
                   <Label style="-fx-padding: 10 0 0 0;" text="Password" />
-                  <PasswordField style="-fx-max-width: 300;" fx:id="passwordTF"/>
+                  <PasswordField fx:id="passwordTF" style="-fx-max-width: 300;" />
                   <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
-                        <Button mnemonicParsing="false" text="Cancel" />
-                        <Button mnemonicParsing="false" text="Confirm" onAction="#handleLogin" />
+                        <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+                        <Button mnemonicParsing="false" onAction="#handleLogin" text="Confirm" />
                      </children>
                   </HBox>
-                  <Label style="-fx-padding: 10 0 0 0;" text="" fx:id="confirmationMessage"/>
+                  <Label fx:id="confirmationMessage" style="-fx-padding: 10 0 0 0;" text="" />
                </children>
             </VBox>
          </center>
