@@ -15,7 +15,7 @@ public class GUI extends Application {
 		GUI.primaryStage = primaryStage;
 		
         Parent root = FXMLLoader.load(getClass().getResource("views/home.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Restaurant Manager");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
