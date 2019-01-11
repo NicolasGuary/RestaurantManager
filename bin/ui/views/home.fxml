@@ -55,7 +55,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
+                        <Button onAction="#handleReadConsummable" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -18,7 +18,6 @@ public class Router
     /** Point d'acc�s pour l'instance unique du singleton */
     public static Router getInstance()
     {   
-    	
     	if (INSTANCE == null)
         {   
         	INSTANCE = new Router(); 

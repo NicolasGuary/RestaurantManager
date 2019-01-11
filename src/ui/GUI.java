@@ -29,5 +29,6 @@ public class GUI extends Application {
     	Router r = Router.getInstance();
     	r.add("login", "views/user/Login.fxml");
     	r.add("home", "views/home.fxml");
+    	r.add("readAllConsummables", "views/consummable/consummables.fxml");
     }
 }

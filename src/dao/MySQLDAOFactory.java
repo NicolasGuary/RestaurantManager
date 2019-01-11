@@ -8,4 +8,9 @@ public class MySQLDAOFactory extends AbstractDAOFactory{
 	public UserDAOMySQL getUserDAO() {
 		return new UserDAOMySQL();
 	}
+	
+	@Override
+	public ConsummableDAOMySQL getConsummableDAO() {
+		return new ConsummableDAOMySQL();
+	}
 }

@@ -1,5 +1,7 @@
 package facade;
 
+
+
 import dao.AbstractDAOFactory;
 import dao.MySQLDAOFactory;
 import dao.UserDAO;
@@ -8,6 +10,7 @@ import model.User;
 public class UserFacade {
 
 	private static UserFacade INSTANCE;
+
 	
 	private User userConnected = new User();
 	
