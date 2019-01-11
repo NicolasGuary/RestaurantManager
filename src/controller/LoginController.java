@@ -1,6 +1,7 @@
 package controller;
 
 
+import ui.Router;
 import facade.UserFacade;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.paint.Color;
 
 public class LoginController {
 	
+	Router router = Router.getInstance();
+	
 	@FXML
 	TextField loginTF;
 	
@@ -22,7 +25,7 @@ public class LoginController {
 	@FXML
 	Label confirmationMessage;
 
-	private UserFacade uf = new UserFacade();
+	private UserFacade uf = UserFacade.getInstance();
 	
     public void initialize() {
     	//TOUCHE ENTR�E
@@ -51,8 +54,7 @@ public class LoginController {
     	String strPasswordTF = passwordTF.getText();
     	boolean connectionEstablised = uf.login(strLoginTF, strPasswordTF);
         if(connectionEstablised){
-        	confirmationMessage.setText("Connection established !");
-        	confirmationMessage.setTextFill(Color.web("green"));
+    		router.activate("home");
         } else {
         	confirmationMessage.setText("Connection refused !");
         	confirmationMessage.setTextFill(Color.web("red"));

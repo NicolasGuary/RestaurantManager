@@ -27,6 +27,7 @@ public class GUI extends Application {
     
     public void init() {
     	Router r = Router.getInstance();
-    	r.add("index2", "views/consummable/index2.fxml");
+    	r.add("login", "views/user/Login.fxml");
+    	r.add("home", "views/home.fxml");
     }
 }

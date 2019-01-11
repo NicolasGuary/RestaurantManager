@@ -15,21 +15,25 @@ public class User {
     	this.nick = nick;
     }
     
+    public User(String nick, boolean isConnected){
+    	this.nick = nick;
+    	this.isConnected = isConnected;
+    }
+    
     public boolean isConnected(){
     	return this.isConnected;
     }
 
-    public User login(String nick, String password) {
-    	AbstractDAOFactory f = new MySQLDAOFactory();
-    	UserDAO udao = f.getUserDAO();
+	public String getNick() {
+		return nick;
+	}
 
-    	if(udao.find(nick, password)){
-    		this.nick = nick;
-    		this.isConnected = true;
-    		return this;
-    	} else {
-            return new User();
-    	}
-    }
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
+	}
 
 }

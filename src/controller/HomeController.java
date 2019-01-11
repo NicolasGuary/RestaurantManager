@@ -1,13 +1,15 @@
 package controller;
 
+import facade.UserFacade;
 import ui.Router;
 
 public class HomeController {
 
 	private Router router = Router.getInstance() ;
+	private UserFacade uf = UserFacade.getInstance();
 	
 	public void handleConsReadAll(){
-		System.out.println(router);
-		router.activate("index2");
+		router.activate("login");
 	}
+
 }
