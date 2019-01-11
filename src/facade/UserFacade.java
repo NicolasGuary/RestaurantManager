@@ -2,6 +2,8 @@ package facade;
 
 
 
+import java.util.ArrayList;
+
 import dao.AbstractDAOFactory;
 import dao.MySQLDAOFactory;
 import dao.UserDAO;
@@ -10,8 +12,8 @@ import model.User;
 public class UserFacade {
 
 	private static UserFacade INSTANCE;
+	private ArrayList<User> usersList;
 
-	
 	private User userConnected = new User();
 	
 	private UserDAO udao;
@@ -42,4 +44,18 @@ public class UserFacade {
     public User getConnectedUser(){
     	return INSTANCE.userConnected;
     }
-}
+
+    public ArrayList<User> readAllUsers(){
+		 if(!this.udao.readAll().isEmpty()){
+			 this.usersList = this.udao.readAll();
+		 }
+		 
+		 return this.usersList;
+	 }
+	 
+	 public ArrayList<User> getUsersList(){
+		 return this.usersList;
+	 
+	 }
+	 }
+

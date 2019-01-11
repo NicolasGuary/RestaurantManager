@@ -3,7 +3,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import model.Consummable;
 import model.User;
 import jdbc.ConnectionToDB;
 
@@ -31,6 +33,27 @@ public class UserDAOMySQL extends UserDAO {
         }
 		return found;
     }
+    
+    public ArrayList<User> readAll() {
+    	ResultSet resultSet;
+    	ArrayList<User> result = new ArrayList<User>();
+			try {
+				resultSet = ConnectionToDB.getInstance().executeQuery("select * from Users");
+				while(resultSet.next()){
+					User tmp = new User(resultSet.getInt("idUser"),resultSet.getString("User.username"),resultSet.getString("User.lastname"),resultSet.getString("User.firstname"),resultSet.getString("User.password"),resultSet.getBoolean("User.isSuperAdmin") );
+					result.add(tmp);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+	            close();
+	        }
+			return result;
+		} 
+		
+    
     
     private void close() {
         try {
@@ -73,4 +96,6 @@ public class UserDAOMySQL extends UserDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 }
