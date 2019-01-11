@@ -38,9 +38,9 @@ public class UserDAOMySQL extends UserDAO {
     	ResultSet resultSet;
     	ArrayList<User> result = new ArrayList<User>();
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select * from Users");
+				resultSet = ConnectionToDB.getInstance().executeQuery("select * from user");
 				while(resultSet.next()){
-					User tmp = new User(resultSet.getInt("idUser"),resultSet.getString("User.username"),resultSet.getString("User.lastname"),resultSet.getString("User.firstname"),resultSet.getString("User.password"),resultSet.getBoolean("User.isSuperAdmin") );
+					User tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin") );
 					result.add(tmp);
 				}
 			} catch (SQLException e) {
