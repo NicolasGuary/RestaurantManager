@@ -1,9 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
-import model.Consummable;
-import facade.ConsummableFacade;
 import facade.UserFacade;
 import ui.Router;
 
@@ -21,6 +17,10 @@ public class HomeController {
 		router.activate("readAllConsummables");
 	}
 
+	public void handleReadOrder(){
+		router.activate("readAllOrders");
+	}
+	
 	public void handleHome(){
 		router.activate("home");
 	}

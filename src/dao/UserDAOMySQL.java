@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import model.Consummable;
 import model.User;
 import jdbc.ConnectionToDB;
 

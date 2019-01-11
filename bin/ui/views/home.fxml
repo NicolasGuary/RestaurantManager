@@ -26,7 +26,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button onAction="#handleConsReadAll" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
+                        <Button onAction="#handleReadOrder" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

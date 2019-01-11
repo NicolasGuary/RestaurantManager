@@ -14,7 +14,7 @@
    <top>
       <BorderPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c#1c1c1c; -fx-padding: 0 0 0 10;" BorderPane.alignment="CENTER">
          <left>
-            <Button onAction="#handleHome"  mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#handleHome" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -24,6 +24,17 @@
                </graphic>
             </Button>
          </left>
+         <right>
+            <Button onAction="#handleConsReadAll" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/whiteuser.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </right>
       </BorderPane>
    </top>
    <center>
@@ -41,7 +52,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button onAction="#handleConsReadAll" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
+                        <Button onAction="#handleReadOrder" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -59,7 +70,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button onAction="#handleReadConsummable" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
+                        <Button layoutX="22.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleReadConsummable" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -1,13 +1,10 @@
 package ui;
-import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 
 
 public class GUI extends Application {
@@ -34,5 +31,6 @@ public class GUI extends Application {
     	r.add("login", "views/user/login.fxml");
     	r.add("home", "views/home.fxml");
     	r.add("readAllConsummables", "views/consummable/consummables.fxml");
+    	r.add("readAllOrders", "views/order/listorders.fxml");
     }
 }
