@@ -40,10 +40,13 @@ public class ReadOrderController {
 				BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/order/singleorder.fxml"));
 				Label labelIdOrder = (Label) bp.lookup("#idOrder");
 				labelIdOrder.setText(Integer.toString(order.getIdOrder()));
+				Label labelPrice = (Label) bp.lookup("#price");
+				labelPrice.setText(Float.toString(order.getPrice()));
 				Label labelCapacity = (Label) bp.lookup("#capacity");
 				labelCapacity.setText(Integer.toString(order.getTable().getCapacity()));
 				Label labelIdTable = (Label) bp.lookup("#idTable");
 				labelIdTable.setText(Integer.toString(order.getTable().getNumber()));
+				//labelIdTable.setId("tableId"+order.getTable().getIdTable());
 				vb.getChildren().add(bp);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
