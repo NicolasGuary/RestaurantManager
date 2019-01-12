@@ -42,6 +42,7 @@ public class UpdateOrderController {
     	boolean paid = false;
     	String note = "Test insert";
     	Table table = new Table(2, 2, 3, 3, true);
-    	OrderFacade.getInstance().create(discount, price, paid, note, consummablesOrder, table);
+    	Order order = new Order(discount, price, paid, note, consummablesOrder, table);
+    	OrderFacade.getInstance().create(order);
     }
 }

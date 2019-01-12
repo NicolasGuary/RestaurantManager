@@ -73,7 +73,7 @@ public class UserDAOMySQL extends UserDAO {
     }
 
 	@Override
-	public User find(long id) {
+	public User find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

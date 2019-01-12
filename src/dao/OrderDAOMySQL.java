@@ -100,21 +100,21 @@ public class OrderDAOMySQL extends OrderDAO {
     
     
 	//Create a new Order.
-	public Order create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, Table table) {
+	public Order create(Order order) {
 		int nbRowsAffected = 0;
 		Order res = null;
 		int orderID = -1;
 		ArrayList<String> queries = new ArrayList<>();
-		int paidInt = paid? 0:1;
+		int paidInt = order.isPaid()? 0:1;
 	
 		try {
 			statement = ConnectionToDB.getInstance();
-			nbRowsAffected = statement.executeUpdate("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+discount+"','"+price+"','"+ paidInt +"','"+note+"','"+table.getIdTable()+"')",Statement.RETURN_GENERATED_KEYS);
+			nbRowsAffected = statement.executeUpdate("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+order.getDiscount()+"','"+order.getPrice()+"','"+ paidInt +"','"+order.getNote()+"','"+order.getTable().getIdTable()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
 		            if (generatedKeys.next()) {
 		            	orderID = generatedKeys.getInt(1);
-		            	res = new Order(orderID,discount,price, paid,note, consummablesOrder, table);
+		            	res = new Order(orderID,order.getDiscount(),order.getPrice(), order.isPaid(),order.getNote(), order.getConsummablesOrder(), order.getTable());
 		            }
 		            else {
 		                throw new SQLException("Creating user failed, no ID obtained.");
@@ -134,7 +134,7 @@ public class OrderDAOMySQL extends OrderDAO {
 				}
 	        }
 			
-			for (Consummable consum: consummablesOrder) {
+			for (Consummable consum: order.getConsummablesOrder()) {
 				String query = "insert into Contains (idConsummable, idOrder) values('"+consum.getIdConsummable() + "','" + orderID + "')";
 				queries.add(query);
 			}
@@ -153,13 +153,7 @@ public class OrderDAOMySQL extends OrderDAO {
 	}
 
 	@Override
-	public Order find(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Order create(Order obj) {
+	public Order find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

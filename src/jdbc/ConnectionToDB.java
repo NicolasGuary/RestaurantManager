@@ -2,6 +2,8 @@ package jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConnectionToDB {
@@ -28,19 +30,18 @@ public class ConnectionToDB {
     }
     
     public static Connection getConnection() throws Exception{
-    	Connection connect = null;
     	if(connection==null){
         	try {
                 // This will load the MySQL driver, each DB has its own driver
                 Class.forName("com.mysql.jdbc.Driver");
                 // Setup the connection with the DB
-                connect = DriverManager
+                connection = DriverManager
                         .getConnection("jdbc:mysql://db4free.net:3306/restotmanager?"
                                 + "user=restotmanager&password=restotmanager");
         	} catch (Exception e) {
                 throw e;
             }
     	}
-    	return connect;
+    	return connection;
     }
 }

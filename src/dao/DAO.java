@@ -7,7 +7,7 @@ public abstract class DAO<T> {
 	 * @param id
 	 * @return
 	 */
-	public abstract T find(long id);
+	public abstract T find(int id);
 	
 	/**
 	 * Permet de cr�er une entr�e dans la base de donn�es

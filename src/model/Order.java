@@ -46,6 +46,16 @@ public class Order {
 		this.note = note;
 	}
 
+	public Order(float discount, float price, boolean paid, String note, ArrayList<Consummable> consummablesOrder, Table table) {
+	
+		this.discount = discount;
+		this.price = price;
+		this.paid = paid;
+		this.note = note;
+		this.consummablesOrder = consummablesOrder;
+		this.table = table;
+	}
+	
 	public int getIdOrder() {
 		return idOrder;
 	}
