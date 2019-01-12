@@ -42,7 +42,10 @@ public class Router
 
     public void activate(String name){ 	
     	try {
-			((BorderPane)(GUI.primaryStage.getScene().lookup("#main-content"))).getChildren().add(FXMLLoader.load(getClass().getResource(INSTANCE.getScreenMap().get(name))));
+    		
+			BorderPane bp = ((BorderPane)(GUI.primaryStage.getScene().lookup("#main-content")));
+			bp.getChildren().clear();
+			bp.getChildren().add(FXMLLoader.load(getClass().getResource(INSTANCE.getScreenMap().get(name))));
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}
