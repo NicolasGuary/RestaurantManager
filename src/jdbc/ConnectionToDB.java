@@ -7,6 +7,7 @@ import java.sql.Statement;
 public class ConnectionToDB {
 
 	private static Statement statement = null;
+	private static Connection connection = null;
 	
     public static Statement getInstance() throws Exception{
     	if(statement==null){
@@ -24,5 +25,22 @@ public class ConnectionToDB {
             }
     	}
     	return statement;
+    }
+    
+    public static Connection getConnection() throws Exception{
+    	Connection connect = null;
+    	if(connection==null){
+        	try {
+                // This will load the MySQL driver, each DB has its own driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Setup the connection with the DB
+                connect = DriverManager
+                        .getConnection("jdbc:mysql://db4free.net:3306/restotmanager?"
+                                + "user=restotmanager&password=restotmanager");
+        	} catch (Exception e) {
+                throw e;
+            }
+    	}
+    	return connect;
     }
 }

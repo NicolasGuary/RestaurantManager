@@ -8,6 +8,7 @@ import dao.MySQLDAOFactory;
 import dao.OrderDAO;
 import model.Consummable;
 import model.Order;
+import model.Table;
 
 public class OrderFacade {
 
@@ -36,12 +37,11 @@ public class OrderFacade {
 		 return this.currentSelection;
 	 }
 	 
-	 public void create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, int idTable) {
-		 this.odao.create(discount, price, paid, note, consummablesOrder, idTable);
+	 public void create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, Table table) {
+		 this.odao.create(discount, price, paid, note, consummablesOrder, table);
 	 }
 	 
 	 public ArrayList<Order> getCurrentSelection(){
 		 return this.currentSelection;
 	 }
-
 }

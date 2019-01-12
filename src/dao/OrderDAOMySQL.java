@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.text.AttributeSet.CharacterAttribute;
+
 import org.omg.CORBA.StringHolder;
 
 import model.Consummable;
@@ -98,22 +100,55 @@ public class OrderDAOMySQL extends OrderDAO {
     
     
 	//Create a new Order.
-	public Order create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, int idTable) {
+	public Order create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, Table table) {
+		int nbRowsAffected = 0;
 		Order res = null;
+		int orderID = -1;
+		ArrayList<String> queries = new ArrayList<>();
+		int paidInt = paid? 0:1;
+	
 		try {
-			int paidInt = paid? 0:1;
-			resultSet = ConnectionToDB.getInstance().executeQuery("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+discount+"','"+price+"','"+ paidInt +"','"+note+"','"+idTable+"')");
-			if(resultSet.next()){
-				//Table à ajouter, mais comment obtenir l'objet Table à partir de son id uniquement ?
-				res = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("price"),resultSet.getInt("paid") == 0? false:true,resultSet.getString("note"));
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+discount+"','"+price+"','"+ paidInt +"','"+note+"','"+table.getIdTable()+"')",Statement.RETURN_GENERATED_KEYS);
+			if(nbRowsAffected >0){
+				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+		            if (generatedKeys.next()) {
+		            	orderID = generatedKeys.getInt(1);
+		            	res = new Order(orderID,discount,price, paid,note, consummablesOrder, table);
+		            }
+		            else {
+		                throw new SQLException("Creating user failed, no ID obtained.");
+		            }
+		        }
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-            close();
-        }
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+	            try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+			
+			for (Consummable consum: consummablesOrder) {
+				String query = "insert into Contains (idConsummable, idOrder) values('"+consum.getIdConsummable() + "','" + orderID + "')";
+				queries.add(query);
+			}
+			
+			try {
+				statement = ConnectionToDB.getConnection().createStatement();
+				for (String query : queries) {
+					statement.addBatch(query);
+				}
+				statement.executeBatch();
+				statement.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}		
 		return res;
 	}
 
@@ -138,6 +173,5 @@ public class OrderDAOMySQL extends OrderDAO {
 	@Override
 	public void delete(Order obj) {
 		// TODO Auto-generated method stub
-		
 	}
 }
