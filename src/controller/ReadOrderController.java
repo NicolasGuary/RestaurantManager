@@ -22,7 +22,7 @@ public class ReadOrderController {
 	
     public void initialize() {
     	ArrayList<Order> currentSelection = of.readAll(false);
-    	currentSelection.forEach((n) -> ordersList.getChildren().add(new Label(n.getIdOrder()+" "+n.getPrice()+" € "+n.getConsummablesOrder().get(0).getNameConsummable()+ " Table n° "+n.getTable().getNumber()))); 
+    	currentSelection.forEach((n) -> ordersList.getChildren().add(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber()))); 
     }
 	
 	public void readAll(String category){

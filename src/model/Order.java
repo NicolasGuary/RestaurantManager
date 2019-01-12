@@ -13,6 +13,7 @@ public class Order {
 	private ArrayList<Consummable> consummablesOrder;
 	private Table table;
 	
+	//Full constructor
 	public Order(int idOrder, float discount, float price, boolean paid, String note, ArrayList<Consummable> consummablesOrder, Table table) {
 		super();
 		this.idOrder = idOrder;
@@ -24,13 +25,14 @@ public class Order {
 		this.table = table;
 	}
 	
-	public Order(int idOrder, float discount, boolean paid, String note, ArrayList<Consummable> consummablesOrder, Table table) {
+	//Constructor without Consummables
+	public Order(int idOrder, float discount,float price, boolean paid, String note, Table table) {
 		super();
 		this.idOrder = idOrder;
 		this.discount = discount;
+		this.price=price;
 		this.paid = paid;
 		this.note = note;
-		this.consummablesOrder = consummablesOrder;
 		this.table = table;
 	}
 

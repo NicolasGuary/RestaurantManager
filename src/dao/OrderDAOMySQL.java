@@ -24,23 +24,20 @@ public class OrderDAOMySQL extends OrderDAO {
     	ArrayList<Order> result = new ArrayList<Order>();
 		if (paid) {
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select *\n" + 
-						"from Consummable, Contains, Orders, Tabl\n" + 
-						"where Consummable.idConsummable = Contains.idConsummable \n" + 
-						"and Contains.idOrder = Orders.idOrder \n" + 
-						"and Orders.idTable = Tabl.idTable\n" + 
+				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
+						"from Orders, Tabl\n" + 
+						"where Orders.idTable = Tabl.idTable\n" + 
 						"and Orders.paid = 1");
 				
 				while(resultSet.next()){
-					int idOrder = resultSet.getInt("Orders.idOrder");
-					ArrayList<Consummable> orderConsummables = new ArrayList<>();
+					/*Create cnosummable only on find order
+					//ArrayList<Consummable> orderConsummables = new ArrayList<>();
 					Consummable newConsummable = new Consummable(resultSet.getInt("Consummable.idConsummable"),resultSet.getInt("Consummable.idCategory"), resultSet.getString("Consummable.name"), resultSet.getFloat("Consummable.price"));
-					//checker si l'order existe déjà dans la requête, si oui on ajoute juste le consummable en reccupérant la liste des consummables
-					//sinon on créée une nouvelle Order
-					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
 					orderConsummables.add(newConsummable);
-					Order tmp = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),true,resultSet.getString("note"),orderConsummables,orderTable);
 					tmp.computePrice();
+					*/
+					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
+					Order tmp = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("Orders.price"),false,resultSet.getString("note"),orderTable);
 					result.add(tmp);
 				}
 			} catch (SQLException e) {
@@ -52,23 +49,20 @@ public class OrderDAOMySQL extends OrderDAO {
 	        }
 		} else {
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select *\n" + 
-						"from Consummable, Contains, Orders, Tabl\n" + 
-						"where Consummable.idConsummable = Contains.idConsummable \n" + 
-						"and Contains.idOrder = Orders.idOrder \n" + 
-						"and Orders.idTable = Tabl.idTable\n" + 
+				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
+						"from Orders, Tabl\n" + 
+						"where Orders.idTable = Tabl.idTable\n" + 
 						"and Orders.paid = 0");
 				
 				while(resultSet.next()){
-					int idOrder = resultSet.getInt("Orders.idOrder");
+					/*Create cnosummable only on find order
 					ArrayList<Consummable> orderConsummables = new ArrayList<>();
 					Consummable newConsummable = new Consummable(resultSet.getInt("Consummable.idConsummable"),resultSet.getInt("Consummable.idCategory"), resultSet.getString("Consummable.name"), resultSet.getFloat("Consummable.price"));
-					//checker si l'order existe déjà dans la requête, si oui on ajoute juste le consummable en reccupérant la liste des consummables
-					//sinon on créée une nouvelle Order
-					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
 					orderConsummables.add(newConsummable);
-					Order tmp = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),false,resultSet.getString("note"),orderConsummables,orderTable);
 					tmp.computePrice();
+					*/
+					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
+					Order tmp = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("Orders.price"),false,resultSet.getString("note"),orderTable);
 					result.add(tmp);
 				}
 			} catch (SQLException e) {
