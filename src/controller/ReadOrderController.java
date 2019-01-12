@@ -8,9 +8,11 @@ import facade.ConsummableFacade;
 import facade.OrderFacade;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import ui.Router;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 public class ReadOrderController {
 
@@ -19,10 +21,10 @@ public class ReadOrderController {
 	
 	@FXML
 	VBox ordersList;
-	
+	Label test;
     public void initialize() {
     	ArrayList<Order> currentSelection = of.readAll(false);
-    	currentSelection.forEach((n) -> ordersList.getChildren().add(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber()))); 
+    	currentSelection.forEach((n) -> ordersList.getChildren().add(new Pane(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ new ImageView("ui/views/img/user.png")+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber())))); 
     }
 	
 	public void readAll(String category){

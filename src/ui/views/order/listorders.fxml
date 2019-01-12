@@ -44,7 +44,7 @@
                                              <children>
                                                 <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true">
                                                    <image>
-                                                      <Image url="@user.png" />
+                                                      <Image url="@../img/user.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Label text="4">
