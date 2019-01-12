@@ -1,19 +1,17 @@
 package facade;
 
-
-
 import java.util.ArrayList;
+import java.util.Observable;
 
 import dao.AbstractDAOFactory;
 import dao.MySQLDAOFactory;
 import dao.UserDAO;
 import model.User;
 
-public class UserFacade {
+public class UserFacade extends Observable {
 
 	private static UserFacade INSTANCE;
 	private ArrayList<User> usersList;
-
 	private User userConnected = new User();
 	
 	private UserDAO udao;
@@ -26,6 +24,8 @@ public class UserFacade {
     public boolean login(String login, String password){
     	if(udao.find(login, password)){
     		userConnected = new User(login, true);
+            setChanged();
+            notifyObservers();
     		return true;
     	} else {
             return false;
@@ -57,5 +57,12 @@ public class UserFacade {
 		 return this.usersList;
 	 
 	 }
-	 }
+
+	public void logout() {
+		userConnected = new User();
+        setChanged();
+        notifyObservers();
+		
+	}
+}
 

@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+<BorderPane fx:controller="controller.TopBarController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <top>
       <BorderPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c#1c1c1c; -fx-padding: 0 0 0 10;" BorderPane.alignment="CENTER">
          <left>
             <Button mnemonicParsing="false" onAction="#handleHome" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="accountImage" fitHeight="25.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/logo.png" />
                      </image>
@@ -25,11 +25,11 @@
             </Button>
          </left>
          <right>
-            <Button onAction="#handleConsReadAll" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
+            <Button fx:id="logButton" onAction="#handleLogin" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
                <graphic>
-                  <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="accountImage" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/whiteuser.png" />
+                        <Image url="@img/login.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -39,69 +39,7 @@
    </top>
    <center>
       <BorderPane id="main-content" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <center>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center; -fx-padding: 10px; -fx-spacing: 10px;" BorderPane.alignment="CENTER">
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
-                     <children>
-                        <Label layoutX="54.0" layoutY="178.0" text="Orders">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Button onAction="#handleReadOrder" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
-                           <graphic>
-                              <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/order.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
-                     <children>
-                        <Label layoutX="54.0" layoutY="178.0" text="Menu">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="22.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleReadConsummable" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
-                           <graphic>
-                              <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/table.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
-                     <children>
-                        <Label layoutX="54.0" layoutY="178.0" text="Rooms">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
-                           <graphic>
-                              <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/meeting.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </Pane>
-               </children>
-            </HBox>
-         </center>
+         
       </BorderPane>
    </center>
 </BorderPane>
