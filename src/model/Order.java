@@ -35,6 +35,16 @@ public class Order {
 		this.note = note;
 		this.table = table;
 	}
+	
+	//Constructor without Consummables and Table (fresh new order from for the create method)
+	public Order(int idOrder, float discount,float price, boolean paid, String note) {
+		super();
+		this.idOrder = idOrder;
+		this.discount = discount;
+		this.price=price;
+		this.paid = paid;
+		this.note = note;
+	}
 
 	public int getIdOrder() {
 		return idOrder;

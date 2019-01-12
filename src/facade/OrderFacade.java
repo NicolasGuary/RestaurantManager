@@ -36,6 +36,10 @@ public class OrderFacade {
 		 return this.currentSelection;
 	 }
 	 
+	 public void create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, int idTable) {
+		 this.odao.create(discount, price, paid, note, consummablesOrder, idTable);
+	 }
+	 
 	 public ArrayList<Order> getCurrentSelection(){
 		 return this.currentSelection;
 	 }

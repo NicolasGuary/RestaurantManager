@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.omg.CORBA.StringHolder;
+
 import model.Consummable;
 import model.Order;
 import model.Table;
@@ -93,6 +95,27 @@ public class OrderDAOMySQL extends OrderDAO {
 
         }
     }
+    
+    
+	//Create a new Order.
+	public Order create(float discount, float price, boolean paid, String note,  ArrayList<Consummable> consummablesOrder, int idTable) {
+		Order res = null;
+		try {
+			int paidInt = paid? 0:1;
+			resultSet = ConnectionToDB.getInstance().executeQuery("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+discount+"','"+price+"','"+ paidInt +"','"+note+"','"+idTable+"')");
+			if(resultSet.next()){
+				//Table à ajouter, mais comment obtenir l'objet Table à partir de son id uniquement ?
+				res = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("price"),resultSet.getInt("paid") == 0? false:true,resultSet.getString("note"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return res;
+	}
 
 	@Override
 	public Order find(long id) {
