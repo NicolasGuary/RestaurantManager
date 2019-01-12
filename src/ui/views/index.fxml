@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="controller.TopBarController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TopBarController">
    <top>
       <BorderPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c#1c1c1c; -fx-padding: 0 0 0 10;" BorderPane.alignment="CENTER">
          <left>
@@ -25,15 +22,20 @@
             </Button>
          </left>
          <right>
-            <Button fx:id="logButton" onAction="#handleLogin" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;" BorderPane.alignment="CENTER">
-               <graphic>
-                  <ImageView fx:id="accountImage" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@img/login.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER_RIGHT" style="-fx-spacing: 5;">
+               <children>
+                  <Label fx:id="welcome" style="-fx-text-fill: white;" />
+                  <Button fx:id="logButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleLogin" style="-fx-background-color: transparent; -fx-cursor: HAND;">
+                     <graphic>
+                        <ImageView fx:id="accountImage" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/login.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
          </right>
       </BorderPane>
    </top>

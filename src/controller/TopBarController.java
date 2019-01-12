@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ui.Router;
@@ -19,6 +20,8 @@ public class TopBarController implements Observer {
 	private ImageView accountImage;
 	@FXML
 	private Button logButton;
+	@FXML
+	private Label welcome;
 	private UserFacade uf = UserFacade.getInstance();
 	private Router router = Router.getInstance() ;
 
@@ -40,6 +43,7 @@ public class TopBarController implements Observer {
 		if(uf.getConnectedUser().isConnected()){
 			image = new Image("ui/views/img/logout.png");
 			accountImage.setImage(image);
+			welcome.setText("Welcome " + uf.getConnectedUser().getUsername() + " !");
 			logButton.setOnAction((event) -> {
 				uf.logout();
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -50,6 +54,7 @@ public class TopBarController implements Observer {
 			});
 		}
 		else {
+			welcome.setText("");
 			image = new Image("ui/views/img/login.png");
 			accountImage.setImage(image);
 			logButton.setOnAction((event) -> {
