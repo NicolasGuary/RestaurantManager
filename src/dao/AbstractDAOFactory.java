@@ -8,4 +8,8 @@ public abstract class AbstractDAOFactory {
 	public abstract ConsummableDAO getConsummableDAO();
 	
 	public abstract OrderDAO getOrderDAO();
+
+	public abstract TypeDAO getTypeDAO();
+
+	public abstract CategoryDAO getCategoryDAO();
 }

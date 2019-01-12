@@ -4,13 +4,13 @@ public class Category {
 	
 	private int idCategory;
 	private int idType;
-	private String nameType;
+	private String nameCategory;
 	
 	public Category(int idCategory, int idType, String nameType) {
 		super();
 		this.idCategory = idCategory;
 		this.idType = idType;
-		this.nameType = nameType;
+		this.nameCategory = nameType;
 	}
 	
 	public int getIdCategory() {
@@ -25,11 +25,11 @@ public class Category {
 	public void setIdType(int idType) {
 		this.idType = idType;
 	}
-	public String getNameType() {
-		return nameType;
+	public String getNameCategory() {
+		return nameCategory;
 	}
 	public void setNameType(String nameType) {
-		this.nameType = nameType;
+		this.nameCategory = nameType;
 	}
 	
 	

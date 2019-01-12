@@ -6,6 +6,7 @@ import model.Consummable;
 
 public abstract class ConsummableDAO extends DAO<Consummable> {
 
-	public abstract ArrayList<Consummable> readAll(String category);
+	public abstract ArrayList<Consummable> readAll();
+	public abstract ArrayList<Consummable> readAll(int idCategory);
 	
 }

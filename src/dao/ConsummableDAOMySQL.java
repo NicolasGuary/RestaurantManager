@@ -17,38 +17,41 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
     public ConsummableDAOMySQL() {
     }
 
-    public ArrayList<Consummable> readAll(String category) {
+    public ArrayList<Consummable> readAll() {
     	ResultSet resultSet;
     	ArrayList<Consummable> result = new ArrayList<Consummable>();
-		if (category.isEmpty()) {
-			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable");
-				while(resultSet.next()){
-					Consummable tmp = new Consummable(resultSet.getInt("idConsummable"),resultSet.getString("Consummable.name"),resultSet.getFloat("price") );
-					result.add(tmp);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-	            close();
-	        }
-		} else {
-			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select * from consummable, category where Consummable.idCategory = Category.idCategory and Category.name = '"+category+"'");
-				while(resultSet.next()){
-					Consummable tmp = new Consummable(resultSet.getInt("idConsummable"),resultSet.getString("Consummable.name"),resultSet.getFloat("price") );
-					result.add(tmp);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-	            close();
-	        }
-		}
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable");
+			while(resultSet.next()){
+				Consummable tmp = new Consummable(resultSet.getInt("idConsummable"),resultSet.getString("Consummable.name"),resultSet.getFloat("price") );
+				result.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return result;
+    }
+    
+    public ArrayList<Consummable> readAll(int idCategory) {
+    	ResultSet resultSet;
+    	ArrayList<Consummable> result = new ArrayList<Consummable>();
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable where idCategory = '"+idCategory+"'");
+			while(resultSet.next()){
+				Consummable tmp = new Consummable(resultSet.getInt("idConsummable"),resultSet.getString("Consummable.name"),resultSet.getFloat("price") );
+				result.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
 		return result;
     }
     
@@ -71,7 +74,7 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
     }
 
 	@Override
-	public Consummable find(long id) {
+	public Consummable find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

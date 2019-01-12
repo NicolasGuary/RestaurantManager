@@ -18,4 +18,14 @@ public class MySQLDAOFactory extends AbstractDAOFactory{
 	public OrderDAO getOrderDAO() {
 		return new OrderDAOMySQL();
 	}
+	
+	@Override
+	public TypeDAO getTypeDAO() {
+		return new TypeDAOMySQL();
+	}
+	
+	@Override
+	public CategoryDAO getCategoryDAO() {
+		return new CategoryDAOMySQL();
+	}
 }

@@ -26,6 +26,7 @@ public class TopBarController implements Observer {
 	private Router router = Router.getInstance() ;
 
 	public void initialize(){
+		
 		uf.addObserver(this);
 	}
 
