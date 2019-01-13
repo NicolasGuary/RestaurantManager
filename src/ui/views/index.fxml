@@ -40,7 +40,7 @@
       </BorderPane>
    </top>
    <center>
-      <BorderPane id="main-content" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="mainContent" id="main-content" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
          
       </BorderPane>
    </center>

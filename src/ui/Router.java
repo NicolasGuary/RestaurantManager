@@ -42,8 +42,7 @@ public class Router
 
     public void activate(String name){ 	
     	try {
-    		
-			BorderPane bp = ((BorderPane)(GUI.primaryStage.getScene().lookup("#main-content")));
+			BorderPane bp = ((BorderPane)(GUI.getPrimaryStage().getScene().lookup("#main-content")));
 			bp.getChildren().clear();
 			bp.getChildren().add(FXMLLoader.load(getClass().getResource(INSTANCE.getScreenMap().get(name))));
 		} catch (Exception e) {	
@@ -56,7 +55,7 @@ public class Router
     }
 
 	public void setMain(Stage mainScene) {
-		GUI.primaryStage = mainScene;
+		GUI.setPrimaryStage(mainScene);
 	}
 
 	public HashMap<String, String> getScreenMap() {

@@ -9,7 +9,16 @@ import javafx.stage.Stage;
 
 public class GUI extends Application {
 
-    static Stage primaryStage = null;
+    private static Stage primaryStage = null;
+    
+    public static Stage getPrimaryStage(){
+    	return primaryStage;
+    }
+    
+    public static void setPrimaryStage(Stage st){
+    	primaryStage = st;
+    }
+    
 	@Override
     public void start(Stage primaryStage) throws Exception{
 		
@@ -32,5 +41,6 @@ public class GUI extends Application {
     	r.add("home", "views/home.fxml");
     	r.add("readAllConsummables", "views/consummable/consummables.fxml");
     	r.add("readAllOrders", "views/order/listorders.fxml");
+    	r.add("updateOrder", "views/order/updateOrder.fxml");
     }
 }

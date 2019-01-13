@@ -57,8 +57,8 @@ public class ReadOrderController {
 //        	vb.getChildren().add(new Pane(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ new ImageView("ui/views/img/user.png")+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber()))));
     }
     
-    public void addOrder(){
-    	
+    public void updateOrder(){
+		router.activate("updateOrder");
     }
 	
 	public void readAll(String category){

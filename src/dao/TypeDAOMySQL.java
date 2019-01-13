@@ -55,7 +55,7 @@ public class TypeDAOMySQL extends TypeDAO {
     }
 
 	@Override
-	public Type find(long id) {
+	public Type find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
