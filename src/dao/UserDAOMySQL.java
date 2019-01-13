@@ -35,18 +35,23 @@ public class UserDAOMySQL extends UserDAO {
     
     public User find(int idUser) {
     	ResultSet resultSet;
+    	User tmp = null;
 		try {
 			resultSet = ConnectionToDB.getInstance().executeQuery("select * from user where idUser = '"+idUser+ "'");
-		} catch (SQLException e) {
+			resultSet.first();
+			tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin") );
+			
+		}	
+		catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
             close();
         }
-		resultSet.next();
 		//On fait une array avec les donnée recup pour que l'on puisse crée un objet ?
-		return resultSet.(); //retourne boolean ou objet ?
+		return tmp; //retourne boolean ou objet ?
+    }
   
     
     public boolean delete(int idUser) {
@@ -81,14 +86,13 @@ public class UserDAOMySQL extends UserDAO {
 		return found;
     }
     
-    public boolean create(int idUser, String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
+    public User create( String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
     	ResultSet resultSet;
-    	boolean result = false;
+    	User tmp = null;
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("Insert into user (idUser,login,password,firstName,lastname,isSuperAdmin,isConnected) values"
+				resultSet = ConnectionToDB.getInstance().executeQuery("Insert into user (login,password,firstName,lastname,isSuperAdmin,isConnected) values"
 			            + " ('"
-			            + idUser
-			            + "', '"
+			          
 			            + login
 			            + "', '"
 			            + password
@@ -102,6 +106,8 @@ public class UserDAOMySQL extends UserDAO {
 			            + isConnected
 			            + "')");
 				
+				resultSet.first();
+				tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin") );			
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -109,7 +115,7 @@ public class UserDAOMySQL extends UserDAO {
 			} finally {
 	            close();
 	        }
-			return result;
+			return tmp;
 		} 
     
     public ArrayList<User> readAll() {

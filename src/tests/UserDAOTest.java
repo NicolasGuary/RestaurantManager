@@ -1,4 +1,6 @@
 package tests;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
@@ -13,6 +15,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dao.UserDAO;
+import facade.UserFacade;
 import jdbc.ConnectionToDB;
 import model.User;
 
@@ -22,8 +26,15 @@ class UserDAOTest {
 	private Connection connect = null;
 	private Statement statement = null;
 	private ResultSet resultSet = null;
+	private static UserFacade uf = UserFacade.getInstance();
+	private static UserDAO udao = UserDAO.getInstance();
 	
-	public ArrayList<User> readAll() {
+	// this array will save all of the accounts created during the test 
+	// in order to delete them after the test.
+	private ArrayList<Integer> idUsersCreated = new ArrayList<Integer>();
+	
+	@Test
+	public void createUser() {
     	ResultSet resultSet;
     	ArrayList<User> result = new ArrayList<User>();
 			try {
@@ -54,8 +65,42 @@ class UserDAOTest {
 			} finally {
 	            close();
 	        }
-			return result;
 		} 
+	
+	@Test
+	public void testAddPrivilege() {
+		int id1 = uf.create("Jacques",  "123",  "Jacques",  "Dupond",  false, true).getIdUser();
+		uf.addPrivilege(id1);
+		assertTrue("User upgraded", udao.find(id1).isSuperAdmin());
+		int id2 = uf.create("Jacques",  "123",  "Jacques",  "Dupond",  true, true).getIdUser();
+		uf.addPrivilege(id2);
+		assertTrue("User already superAdmin", udao.find(id2).isSuperAdmin());
+		
+		uf.getConnectedUser().setSuperAdmin(false);
+		int id3 = uf.create("Jacques",  "123",  "Jacques",  "Dupond",  false, true).getIdUser();
+		uf.addPrivilege(id3);
+		assertFalse("If user that tries to upgrade another account is not superAdmin", udao.find(id3).isSuperAdmin());
+		uf.getConnectedUser().setSuperAdmin(true);
+		
+		idUsersCreated.add(id1);
+		idUsersCreated.add(id2);
+		idUsersCreated.add(id3);
+	}
+	
+	@Test
+	public void testLogout() {
+		uf.create("Jacques",  "123",  "Jacques",  "Dupond",  false, true);
+		assertTrue("User upgraded", uf.getConnectedUser().isSuperAdmin());
+		
+		uf.create("Jacques",  "123",  "Jacques",  "Dupond",  true, false);
+		assertTrue("User already superAdmin", uf.getConnectedUser().isSuperAdmin());
+		
+		uf.getConnectedUser().setSuperAdmin(false);
+		uf.create("Jacques",  "123",  "Jacques",  "Dupond",  false, true);
+		assertFalse("If user that tries to upgrade another account is not superAdmin", uf.getConnectedUser().isSuperAdmin());
+		uf.getConnectedUser().setSuperAdmin(false);
+		
+	}
 	
 	private void close() {
         try {
@@ -78,6 +123,9 @@ class UserDAOTest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		uf.login("Quentin", "123");
+		
+		
 	}
 
 	@AfterAll
