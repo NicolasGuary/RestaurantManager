@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:controller="controller.UpdateOrderController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
          <opaqueInsets>
@@ -76,14 +76,14 @@
                         <HBox prefHeight="37.0" prefWidth="580.0" style="-fx-alignment: center;">
                            <children>
                               <Label style="-fx-padding: 10;" text="Table : " />
-                              <ChoiceBox id="Room" accessibleText="Room" prefWidth="150.0" />
+                              <ChoiceBox fx:id="tableInput" id="Room" accessibleText="Room" prefWidth="150.0" />
                            </children>
                         </HBox>
                      </children>
                   </HBox>
                   <HBox prefHeight="18.0" prefWidth="580.0" style="-fx-alignment: center;">
                      <children>
-                        <TextField prefHeight="27.0" prefWidth="637.0" promptText="Comment...." style="-fx-alignment: center;" />
+                        <TextField fx:id="noteInput" prefHeight="27.0" prefWidth="637.0" promptText="Comment...." style="-fx-alignment: center;" />
                      </children>
                   </HBox>
                </children>
@@ -92,8 +92,8 @@
          <bottom>
             <HBox prefHeight="7.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 30;" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: orange;" text="Cancel" textFill="WHITE" />
-                  <Button layoutX="267.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Confirm" textFill="WHITE" />
+                  <Button onAction="#goToList" mnemonicParsing="false" style="-fx-background-color: orange; -fx-cursor:HAND;" text="Cancel" textFill="WHITE" />
+                  <Button onAction="#create" layoutX="267.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor:HAND;" text="Confirm" textFill="WHITE" />
                </children>
             </HBox>
          </bottom>
@@ -105,14 +105,13 @@
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label text="($10)" textFill="#5e5e5e">
+                  <Label text="(0€)" textFill="#5e5e5e">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <CheckBox mnemonicParsing="false" text="Paid ?" textFill="#797979" />
-                  <TextField promptText="Discount ?" />
-                  <ChoiceBox prefHeight="27.0" prefWidth="51.0" />
+                  <CheckBox fx:id="isPaidInput" mnemonicParsing="false" text="Paid ?" textFill="#797979" />
+                  <TextField fx:id="discountInput" promptText="Discount" />
                </children>
             </HBox>
          </top>

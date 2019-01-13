@@ -7,6 +7,8 @@ import model.Consummable;
 import model.Order;
 import facade.ConsummableFacade;
 import facade.OrderFacade;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -15,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import ui.Router;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -29,6 +32,14 @@ public class ReadOrderController {
 
 	Label test;
     public void initialize() {
+    	readAll();
+    }
+
+    public void updateOrder(){
+		router.activate("updateOrder");
+    }
+
+	public void readAll(){
     	ArrayList<Order> currentSelection = of.readAll(false);
     	scrollP.setHbarPolicy(ScrollBarPolicy.NEVER);
         VBox vb = new VBox();
@@ -46,20 +57,18 @@ public class ReadOrderController {
 				labelCapacity.setText(Integer.toString(order.getTable().getCapacity()));
 				Label labelIdTable = (Label) bp.lookup("#idTable");
 				labelIdTable.setText(Integer.toString(order.getTable().getNumber()));
-				//labelIdTable.setId("tableId"+order.getTable().getIdTable());
+				Button deleteBtn = (Button) bp.lookup("#deleteButton");
+				deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
+		            @Override public void handle(ActionEvent e) {
+		                of.delete(order);
+		                readAll();
+		            }
+		        });
 				vb.getChildren().add(bp);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-//        currentSelection.forEach((n) ->
-//        	vb.getChildren().add(new Pane(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ new ImageView("ui/views/img/user.png")+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber()))));
-    }
-
-    public void updateOrder(){
-		router.activate("updateOrder");
-    }
-
-	public void readAll(String category){}
+		}
 }

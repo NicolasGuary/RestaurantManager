@@ -105,6 +105,7 @@ public class OrderDAOMySQL extends OrderDAO {
 	
 		try {
 			statement = ConnectionToDB.getInstance();
+			System.out.println("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+order.getDiscount()+"','"+order.getPrice()+"','"+ paidInt +"','"+order.getNote()+"','"+order.getTable().getIdTable()+"')");
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+order.getDiscount()+"','"+order.getPrice()+"','"+ paidInt +"','"+order.getNote()+"','"+order.getTable().getIdTable()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
