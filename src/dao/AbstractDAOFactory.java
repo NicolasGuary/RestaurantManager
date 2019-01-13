@@ -14,4 +14,6 @@ public abstract class AbstractDAOFactory {
 	public abstract CategoryDAO getCategoryDAO();
 	
 	public abstract RoomDAO getRoomDAO();
+	
+	public abstract TableDAO getTableDAO();
 }

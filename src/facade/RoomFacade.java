@@ -8,6 +8,7 @@ import dao.CategoryDAO;
 import dao.ConsummableDAO;
 import dao.MySQLDAOFactory;
 import dao.RoomDAO;
+import dao.TableDAO;
 import dao.TypeDAO;
 import model.Type;
 import model.Category;
