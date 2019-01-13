@@ -17,11 +17,11 @@ public class UserDAOMySQL extends UserDAO {
     public UserDAOMySQL() {
     }
 
-    public boolean find(String nick, String password) {
+    public boolean isAuthentificationValid(String username, String password) {
     	boolean found = false;
     	ResultSet resultSet;
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from user where login = '"+nick+"' and password = '"+password+ "'");
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from user where login = '"+username+"' and password = '"+password+ "'");
 	        found = resultSet.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -32,6 +32,85 @@ public class UserDAOMySQL extends UserDAO {
         }
 		return found;
     }
+    
+    public User find(int idUser) {
+    	ResultSet resultSet;
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from user where idUser = '"+idUser+ "'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		resultSet.next();
+		//On fait une array avec les donnée recup pour que l'on puisse crée un objet ?
+		return resultSet.(); //retourne boolean ou objet ?
+  
+    
+    public boolean delete(int idUser) {
+    	boolean found = false;
+    	ResultSet resultSet;
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("delete * from user where id = '"+idUser + "'");
+	        found = resultSet.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return found;
+    }
+    
+    public boolean addPrivilege(int idUser) {
+    	boolean found = false;
+    	ResultSet resultSet;
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("update user set isSuperAdmin = true where id = '"+idUser + "'");
+	        found = resultSet.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return found;
+    }
+    
+    public boolean create(int idUser, String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
+    	ResultSet resultSet;
+    	boolean result = false;
+			try {
+				resultSet = ConnectionToDB.getInstance().executeQuery("Insert into user (idUser,login,password,firstName,lastname,isSuperAdmin,isConnected) values"
+			            + " ('"
+			            + idUser
+			            + "', '"
+			            + login
+			            + "', '"
+			            + password
+			            + "', '"
+			            + firstname
+			            + "', '"
+			            + lastname
+			            + "', '"
+			            + isSuperAdmin
+			            + "', '"
+			            + isConnected
+			            + "')");
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+	            close();
+	        }
+			return result;
+		} 
     
     public ArrayList<User> readAll() {
     	ResultSet resultSet;
@@ -72,11 +151,6 @@ public class UserDAOMySQL extends UserDAO {
         }
     }
 
-	@Override
-	public User find(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public User create(User obj) {
@@ -94,6 +168,8 @@ public class UserDAOMySQL extends UserDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 
 }

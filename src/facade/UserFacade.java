@@ -22,8 +22,39 @@ public class UserFacade extends Observable {
 	}
 	
     public boolean login(String login, String password){
-    	if(udao.find(login, password)){
+    	if(udao.isAuthentificationValid(login, password)){
     		userConnected = new User(login, true);
+            setChanged();
+            notifyObservers();
+    		return true;
+    	} else {
+            return false;
+    	}
+    }
+    
+    public boolean addPrivilege(int idUser){
+    	if(udao.addPrivilege(idUser)){
+            setChanged();
+            notifyObservers();
+    		return true;
+    	} else {
+            return false;
+    	}
+    }
+    
+    public boolean delete(int idUser){
+    	if(udao.delete(idUser)){
+            setChanged();
+            notifyObservers();
+    		return true;
+    	} else {
+            return false;
+    	}
+    }
+    
+    public boolean create(int idUser, String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
+	
+    	if(udao.create(idUser, login,  password,  firstname,  lastname,  isSuperAdmin, isConnected)){
             setChanged();
             notifyObservers();
     		return true;
