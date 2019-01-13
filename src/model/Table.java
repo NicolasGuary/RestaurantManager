@@ -3,14 +3,16 @@ package model;
 public class Table {
 
 	private int idTable;
+	private int idRoom;
 	private int number;
 	private int capacity;
 	private int maxCapacity;
 	private boolean available;
 	
-	public Table(int idTable, int number, int capacity, int maxCapacity, boolean available) {
+	public Table(int idTable,int idRoom,int number, int capacity, int maxCapacity, boolean available) {
 		super();
 		this.idTable = idTable;
+		this.idRoom = idRoom;
 		this.number = number;
 		this.capacity = capacity;
 		this.maxCapacity = maxCapacity;
@@ -23,6 +25,14 @@ public class Table {
 
 	public void setIdTable(int idTable) {
 		this.idTable = idTable;
+	}
+	
+	public int getIdRoom() {
+		return idRoom;
+	}
+
+	public void setIdRoom(int idRoom) {
+		this.idRoom = idRoom;
 	}
 
 	public int getNumber() {

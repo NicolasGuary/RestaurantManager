@@ -24,7 +24,7 @@ public class OrderDAOMySQL extends OrderDAO {
     	ArrayList<Order> result = new ArrayList<Order>();
 		if (paid) {
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
+				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
 						"from Orders, Tabl\n" + 
 						"where Orders.idTable = Tabl.idTable\n" + 
 						"and Orders.paid = 1");
@@ -36,7 +36,7 @@ public class OrderDAOMySQL extends OrderDAO {
 					orderConsummables.add(newConsummable);
 					tmp.computePrice();
 					*/
-					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
+					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"),resultSet.getInt("Tabl.idRoom"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
 					Order tmp = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("Orders.price"),false,resultSet.getString("note"),orderTable);
 					result.add(tmp);
 				}
@@ -49,7 +49,7 @@ public class OrderDAOMySQL extends OrderDAO {
 	        }
 		} else {
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
+				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
 						"from Orders, Tabl\n" + 
 						"where Orders.idTable = Tabl.idTable\n" + 
 						"and Orders.paid = 0");
@@ -61,7 +61,7 @@ public class OrderDAOMySQL extends OrderDAO {
 					orderConsummables.add(newConsummable);
 					tmp.computePrice();
 					*/
-					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
+					Table orderTable = new Table(resultSet.getInt("Tabl.idTable"),resultSet.getInt("Tabl.idRoom"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false:true);
 					Order tmp = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("Orders.price"),false,resultSet.getString("note"),orderTable);
 					result.add(tmp);
 				}
@@ -156,7 +156,7 @@ public class OrderDAOMySQL extends OrderDAO {
 		Table tableOrder = null;
 		try {
 			//We look up for all the Order, his Table, and all the Consummables included into it
-			resultSet = ConnectionToDB.getInstance().executeQuery("select Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available, Consummable.idConsummable, Consummable.name, Consummable.price, Consummable.idCategory\n" + 
+			resultSet = ConnectionToDB.getInstance().executeQuery("select Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable,Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available, Consummable.idConsummable, Consummable.name, Consummable.price, Consummable.idCategory\n" + 
 					"from Orders, Tabl, Consummable, Contains\n" + 
 					"where Tabl.idTable = Orders.idTable\n" + 
 					"and Orders.idOrder = Contains.idOrder\n" + 
@@ -165,7 +165,7 @@ public class OrderDAOMySQL extends OrderDAO {
 			
 			//If there's at least one row returned, we create a new Order and a new Table, and add the Consummable into the array of Consummable
 			if(resultSet.next()){
-				tableOrder = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false : true);
+				tableOrder = new Table(resultSet.getInt("Tabl.idTable"),resultSet.getInt("Tabl.idRoom"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false : true);
 				result = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("Orders.price"),resultSet.getInt("Orders.paid") == 0? false : true,resultSet.getString("Orders.note"),tableOrder);
 				orderConsummables.add(new Consummable(resultSet.getInt("Consummable.idConsummable"),resultSet.getInt("Consummable.idCategory"), resultSet.getString("Consummable.name"), resultSet.getFloat("Consummable.price")));
 				//Then we look up for any other Consummable 

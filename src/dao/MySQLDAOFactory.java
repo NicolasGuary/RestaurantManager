@@ -28,4 +28,9 @@ public class MySQLDAOFactory extends AbstractDAOFactory{
 	public CategoryDAO getCategoryDAO() {
 		return new CategoryDAOMySQL();
 	}
+	
+	@Override
+	public RoomDAO getRoomDAO() {
+		return new RoomDAOMySQL();
+	}
 }
