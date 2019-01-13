@@ -41,6 +41,14 @@ public class OrderFacade {
 		 this.odao.create(order);
 	 }
 	 
+	 public void update(Order order) {
+		 this.odao.update(order);
+	 }
+	 
+	 public void delete(Order order) {
+		 this.odao.delete(order);
+	 }
+	 
 	 public ArrayList<Order> getCurrentSelection(){
 		 return this.currentSelection;
 	 }

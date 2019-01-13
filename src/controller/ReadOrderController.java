@@ -26,7 +26,7 @@ public class ReadOrderController {
 	ScrollPane scrollP;
 	private Router router = Router.getInstance();
 	private OrderFacade of = OrderFacade.getInstance();
-	
+
 	Label test;
     public void initialize() {
     	ArrayList<Order> currentSelection = of.readAll(false);
@@ -53,15 +53,13 @@ public class ReadOrderController {
 				e.printStackTrace();
 			}
 		}
-//        currentSelection.forEach((n) -> 
+//        currentSelection.forEach((n) ->
 //        	vb.getChildren().add(new Pane(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ new ImageView("ui/views/img/user.png")+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber()))));
     }
-    
+
     public void updateOrder(){
 		router.activate("updateOrder");
     }
-	
-	public void readAll(String category){
-		
-	}
+
+	public void readAll(String category){}
 }

@@ -85,9 +85,8 @@ public class UserDAOMySQL extends UserDAO {
 	}
 
 	@Override
-	public User update(User obj) {
+	public void update(User obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

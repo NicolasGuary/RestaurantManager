@@ -118,8 +118,7 @@ public class Order {
 		for (int i=0; i<this.consummablesOrder.size();i++) {
 			result += this.consummablesOrder.get(i).getPrice();
 		}
-		//Discount to check because we have the checkbox in the view to know if it's € or % but not stored. Maybe we can say it is only % discount and that's all.
-		//we would do result*(1+(discount/100))
+		result = result - this.discount;
 		this.price=result;
 	}	
 }

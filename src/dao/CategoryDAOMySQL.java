@@ -56,7 +56,7 @@ public class CategoryDAOMySQL extends CategoryDAO {
     }
 
 	@Override
-	public Category find(long id) {
+	public Category find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,9 +68,8 @@ public class CategoryDAOMySQL extends CategoryDAO {
 	}
 
 	@Override
-	public Category update(Category obj) {
+	public void update(Category obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

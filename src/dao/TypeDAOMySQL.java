@@ -67,9 +67,8 @@ public class TypeDAOMySQL extends TypeDAO {
 	}
 
 	@Override
-	public Type update(Type obj) {
+	public void update(Type obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
