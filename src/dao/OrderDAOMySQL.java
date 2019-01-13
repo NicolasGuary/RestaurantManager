@@ -149,9 +149,41 @@ public class OrderDAOMySQL extends OrderDAO {
 	}
 
 	@Override
-	public Order find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Order find(int idOrder) {
+		ResultSet resultSet;
+		Order result = null;
+		ArrayList<Consummable> orderConsummables = new ArrayList<>();
+		Table tableOrder = null;
+		try {
+			//We look up for all the Order, his Table, and all the Consummables included into it
+			resultSet = ConnectionToDB.getInstance().executeQuery("select Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available, Consummable.idConsummable, Consummable.name, Consummable.price, Consummable.idCategory\n" + 
+					"from Orders, Tabl, Consummable, Contains\n" + 
+					"where Tabl.idTable = Orders.idTable\n" + 
+					"and Orders.idOrder = Contains.idOrder\n" + 
+					"and Contains.idConsummable = Consummable.idConsummable\n" + 
+					"and Orders.idOrder = '"+idOrder + "'");
+			
+			//If there's at least one row returned, we create a new Order and a new Table, and add the Consummable into the array of Consummable
+			if(resultSet.next()){
+				tableOrder = new Table(resultSet.getInt("Tabl.idTable"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false : true);
+				result = new Order(resultSet.getInt("Orders.idOrder"),resultSet.getFloat("discount"),resultSet.getFloat("Orders.price"),resultSet.getInt("Orders.paid") == 0? false : true,resultSet.getString("Orders.note"),tableOrder);
+				orderConsummables.add(new Consummable(resultSet.getInt("Consummable.idConsummable"),resultSet.getInt("Consummable.idCategory"), resultSet.getString("Consummable.name"), resultSet.getFloat("Consummable.price")));
+				//Then we look up for any other Consummable 
+				while(resultSet.next()) {
+					orderConsummables.add(new Consummable(resultSet.getInt("Consummable.idConsummable"),resultSet.getInt("Consummable.idCategory"), resultSet.getString("Consummable.name"), resultSet.getFloat("Consummable.price")));
+				}
+				//And we affect the list of Consummables to the order
+				result.setConsummablesOrder(orderConsummables);
+			} 
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return result;
 	}
 
 	@Override

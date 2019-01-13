@@ -36,6 +36,11 @@ public class OrderFacade {
 		 } 
 		 return this.currentSelection;
 	 }
+	
+	//WARNING: Can return null if not found
+	 public Order find(int idOrder) {
+		return this.odao.find(idOrder);
+	 }
 	 
 	 public void create(Order order) {
 		 this.odao.create(order);

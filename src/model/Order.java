@@ -120,5 +120,13 @@ public class Order {
 		}
 		result = result - this.discount;
 		this.price=result;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [idOrder=" + idOrder + ", discount=" + discount + ", price=" + price + ", paid=" + paid
+				+ ", note=" + note + ", consummablesOrder=" + consummablesOrder + ", table=" + table + "]";
 	}	
+	
+	
 }
