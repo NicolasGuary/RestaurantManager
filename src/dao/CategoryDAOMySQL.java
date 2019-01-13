@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Category;
-import model.Type;
 import jdbc.ConnectionToDB;
 
 public class CategoryDAOMySQL extends CategoryDAO {
@@ -56,25 +55,91 @@ public class CategoryDAOMySQL extends CategoryDAO {
     }
 
 	@Override
-	public Category find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Category find(int idCategory) {
+		ResultSet resultSet;
+    	Category result =null;
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Category where idCategory = "+idCategory);
+			while(resultSet.next()){
+				result = new Category(resultSet.getInt("idCategory"), resultSet.getInt("idType"), resultSet.getString("Category.name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return result;
 	}
 
 	@Override
-	public Category create(Category obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Category create(Category category) {
+		int nbRowsAffected = 0;
+		Category res = null;
+		int catID = -1;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("INSERT INTO Category (idCategory, idType, name) VALUES (NULL,'"+category.getIdType()+"','"+category.getNameCategory()+"')",Statement.RETURN_GENERATED_KEYS);
+			if(nbRowsAffected >0){
+				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+		            if (generatedKeys.next()) {
+		            	catID = generatedKeys.getInt(1);
+		            	res = new Category(catID,category.getIdType(),category.getNameCategory());
+		            }
+		            else {
+		                throw new SQLException("Creating category failed, no ID obtained.");
+		            }
+		        }
+			}
+		} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+	            try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+		return res;
 	}
 
 	@Override
-	public void update(Category obj) {
-		// TODO Auto-generated method stub
+	public void update(Category category) {
+		int nbRowsAffected = 0;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("UPDATE Category SET name ='"+category.getNameCategory()+"', idType= '"+category.getIdType()+"' WHERE Category.idCategory = '"+category.getIdCategory()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Updating category failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	@Override
-	public void delete(Category obj) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Category category) {
+		int nbRowsAffected = 0;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Category WHERE idCategory ='"+category.getIdCategory()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting category failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 }
