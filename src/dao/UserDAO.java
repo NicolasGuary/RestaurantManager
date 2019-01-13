@@ -6,8 +6,11 @@ import model.User;
 
 public abstract class UserDAO extends DAO<User> {
 
-	public abstract boolean find(String nick, String password);
-
+	public abstract boolean isAuthentificationValid(String username, String password);
+	public abstract boolean addPrivilege(int idUser);
+	public abstract boolean delete(int idUser);
+	public abstract User find(int idUser);
+	public abstract boolean create(int idUser, String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) ;
 	public abstract ArrayList<User> readAll();
 	
 }
