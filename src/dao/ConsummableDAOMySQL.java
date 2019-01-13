@@ -86,9 +86,8 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 	}
 
 	@Override
-	public Consummable update(Consummable obj) {
+	public void update(Consummable obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

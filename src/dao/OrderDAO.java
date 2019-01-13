@@ -10,5 +10,7 @@ public abstract class OrderDAO extends DAO<Order> {
 
 	public abstract ArrayList<Order> readAll(boolean paid);
 	public abstract Order create(Order order);
+	public abstract void update(Order order);
+	public abstract void delete(Order order);
 	
 }

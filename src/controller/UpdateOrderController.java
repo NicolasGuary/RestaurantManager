@@ -32,17 +32,8 @@ public class UpdateOrderController {
 	public void create(){}
 	
 	public static void main(String[] args) {
-		ArrayList<Consummable> consummablesOrder = new ArrayList<>();
-    	Consummable consummable = new Consummable(10, "Carottes", (float) 1.2);
-    	Consummable c2 = new Consummable(11, "Chou", (float) 1.2);
-    	consummablesOrder.add(consummable);
-    	consummablesOrder.add(c2);
-    	float discount = (float)1.2;
-    	float price = (float)1;
-    	boolean paid = false;
-    	String note = "Test insert";
-    	Table table = new Table(2, 2, 3, 3, true);
-    	Order order = new Order(discount, price, paid, note, consummablesOrder, table);
-    	OrderFacade.getInstance().create(order);
+		//Read all fields from the view and create an Order object
+    	//Order order = new Order(discount, price, paid, note, consummablesOrder, table);
+    	//OrderFacade.getInstance().create(order);
     }
 }

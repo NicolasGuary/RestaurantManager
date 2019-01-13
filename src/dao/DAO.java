@@ -20,7 +20,7 @@ public abstract class DAO<T> {
 	 * Permet de mettre � jour les donn�es d'une entr�e dans la base 
 	 * @param obj
 	 */
-	public abstract T update(T obj);
+	public abstract void update(T obj);
 	
 	/**
 	 * Permet la suppression d'une entr�e de la base

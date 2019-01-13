@@ -5,10 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.swing.text.AttributeSet.CharacterAttribute;
-
-import org.omg.CORBA.StringHolder;
-
 import model.Consummable;
 import model.Order;
 import model.Table;
@@ -117,7 +113,7 @@ public class OrderDAOMySQL extends OrderDAO {
 		            	res = new Order(orderID,order.getDiscount(),order.getPrice(), order.isPaid(),order.getNote(), order.getConsummablesOrder(), order.getTable());
 		            }
 		            else {
-		                throw new SQLException("Creating user failed, no ID obtained.");
+		                throw new SQLException("Creating order failed, no ID obtained.");
 		            }
 		        }
 			}
@@ -159,13 +155,71 @@ public class OrderDAOMySQL extends OrderDAO {
 	}
 
 	@Override
-	public Order update(Order obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(Order order) {
+		int nbRowsAffected = 0;
+		ArrayList<String> queries = new ArrayList<>();
+		int paidInt = order.isPaid()? 0:1;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("UPDATE Orders SET discount ='"+order.getDiscount()+"', price= '"+order.getPrice()+"', paid='"+ paidInt +"', note='"+order.getNote()+"',idTable'"+order.getTable().getIdTable()+"' WHERE Orders.idOrder = '"+order.getIdOrder()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Updating order failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		    //We drop all the consummables previously contained by this Order and then we add all the new one
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Contains WHERE idOrder = '"+order.getIdOrder()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Updating contains failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			for (Consummable consum: order.getConsummablesOrder()) {
+				String query = "insert into Contains (idConsummable, idOrder) values('"+consum.getIdConsummable() + "','" + order.getIdOrder() + "')";
+				queries.add(query);
+			}
+			
+			try {
+				statement = ConnectionToDB.getConnection().createStatement();
+				for (String query : queries) {
+					statement.addBatch(query);
+				}
+				statement.executeBatch();
+				statement.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}		
 	}
 
 	@Override
-	public void delete(Order obj) {
-		// TODO Auto-generated method stub
+	public void delete(Order order) {
+		int nbRowsAffected = 0;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Orders WHERE idOrder ='"+order.getIdOrder()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting order failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 }
