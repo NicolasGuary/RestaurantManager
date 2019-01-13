@@ -52,6 +52,7 @@ public class UserFacade extends Observable {
     	}
     }
     
+<<<<<<< HEAD
     public User create(String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
     	User user = udao.create( login,  password,  firstname,  lastname,  isSuperAdmin, isConnected);
     	if (user != null) {
@@ -59,6 +60,17 @@ public class UserFacade extends Observable {
         notifyObservers();
         };
         return user;
+=======
+    public boolean create(int idUser, String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
+	
+    	if(udao.create(idUser, login,  password,  firstname,  lastname,  isSuperAdmin, isConnected)){
+            setChanged();
+            notifyObservers();
+    		return true;
+    	} else {
+            return false;
+    	}
+>>>>>>> nathan
     }
     
     public static UserFacade getInstance(){

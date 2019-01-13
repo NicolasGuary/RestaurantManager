@@ -1,6 +1,9 @@
 package tests;
+<<<<<<< HEAD
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+=======
+>>>>>>> nathan
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
@@ -15,8 +18,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+<<<<<<< HEAD
 import dao.UserDAO;
 import facade.UserFacade;
+=======
+>>>>>>> nathan
 import jdbc.ConnectionToDB;
 import model.User;
 
@@ -26,6 +32,7 @@ class UserDAOTest {
 	private Connection connect = null;
 	private Statement statement = null;
 	private ResultSet resultSet = null;
+<<<<<<< HEAD
 	private static UserFacade uf = UserFacade.getInstance();
 	private static UserDAO udao = UserDAO.getInstance();
 	
@@ -35,6 +42,10 @@ class UserDAOTest {
 	
 	@Test
 	public void createUser() {
+=======
+	
+	public ArrayList<User> readAll() {
+>>>>>>> nathan
     	ResultSet resultSet;
     	ArrayList<User> result = new ArrayList<User>();
 			try {
@@ -65,6 +76,7 @@ class UserDAOTest {
 			} finally {
 	            close();
 	        }
+<<<<<<< HEAD
 		} 
 	
 	@Test
@@ -102,6 +114,11 @@ class UserDAOTest {
 		
 	}
 	
+=======
+			return result;
+		} 
+	
+>>>>>>> nathan
 	private void close() {
         try {
             if (resultSet != null) {
@@ -123,9 +140,12 @@ class UserDAOTest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+<<<<<<< HEAD
 		uf.login("Quentin", "123");
 		
 		
+=======
+>>>>>>> nathan
 	}
 
 	@AfterAll

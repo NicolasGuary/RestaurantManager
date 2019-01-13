@@ -35,6 +35,7 @@ public class UserDAOMySQL extends UserDAO {
     
     public User find(int idUser) {
     	ResultSet resultSet;
+<<<<<<< HEAD
     	User tmp = null;
 		try {
 			resultSet = ConnectionToDB.getInstance().executeQuery("select * from user where idUser = '"+idUser+ "'");
@@ -43,15 +44,26 @@ public class UserDAOMySQL extends UserDAO {
 			
 		}	
 		catch (SQLException e) {
+=======
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from user where idUser = '"+idUser+ "'");
+		} catch (SQLException e) {
+>>>>>>> nathan
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
             close();
         }
+<<<<<<< HEAD
 		//On fait une array avec les donnée recup pour que l'on puisse crée un objet ?
 		return tmp; //retourne boolean ou objet ?
     }
+=======
+		resultSet.next();
+		//On fait une array avec les donnée recup pour que l'on puisse crée un objet ?
+		return resultSet.(); //retourne boolean ou objet ?
+>>>>>>> nathan
   
     
     public boolean delete(int idUser) {
@@ -86,6 +98,7 @@ public class UserDAOMySQL extends UserDAO {
 		return found;
     }
     
+<<<<<<< HEAD
     public User create( String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
     	ResultSet resultSet;
     	User tmp = null;
@@ -93,6 +106,16 @@ public class UserDAOMySQL extends UserDAO {
 				resultSet = ConnectionToDB.getInstance().executeQuery("Insert into user (login,password,firstName,lastname,isSuperAdmin,isConnected) values"
 			            + " ('"
 			          
+=======
+    public boolean create(int idUser, String login, String password, String firstname, String lastname, boolean isSuperAdmin, boolean isConnected) {
+    	ResultSet resultSet;
+    	boolean result = false;
+			try {
+				resultSet = ConnectionToDB.getInstance().executeQuery("Insert into user (idUser,login,password,firstName,lastname,isSuperAdmin,isConnected) values"
+			            + " ('"
+			            + idUser
+			            + "', '"
+>>>>>>> nathan
 			            + login
 			            + "', '"
 			            + password
@@ -106,8 +129,11 @@ public class UserDAOMySQL extends UserDAO {
 			            + isConnected
 			            + "')");
 				
+<<<<<<< HEAD
 				resultSet.first();
 				tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin") );			
+=======
+>>>>>>> nathan
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -115,7 +141,11 @@ public class UserDAOMySQL extends UserDAO {
 			} finally {
 	            close();
 	        }
+<<<<<<< HEAD
 			return tmp;
+=======
+			return result;
+>>>>>>> nathan
 		} 
     
     public ArrayList<User> readAll() {
