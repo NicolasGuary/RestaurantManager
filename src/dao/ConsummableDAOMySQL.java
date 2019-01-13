@@ -74,28 +74,90 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
     }
 
 	@Override
-	public Consummable find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Consummable find(int idConsummable) {
+		ResultSet resultSet;
+    	Consummable result = null;
+		try {
+			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable where idConsummable = "+idConsummable);
+			while(resultSet.next()){
+				result = new Consummable(resultSet.getInt("idConsummable"), resultSet.getInt("idCategory"), resultSet.getString("name"), resultSet.getFloat("price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            close();
+        }
+		return result;
 	}
 
 	@Override
-	public Consummable create(Consummable obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Consummable create(Consummable consummable) {
+		int nbRowsAffected = 0;
+		Consummable res = null;
+		int consID = -1;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("INSERT INTO Consummable (idConsummable, idCategory, name, price) VALUES (NULL,'"+consummable.getIdCategory()+"','"+consummable.getNameConsummable()+"','"+consummable.getPrice()+"')",Statement.RETURN_GENERATED_KEYS);
+			if(nbRowsAffected >0){
+				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+		            if (generatedKeys.next()) {
+		            	consID = generatedKeys.getInt(1);
+		            	res = new Consummable(consID,consummable.getIdCategory(),consummable.getNameConsummable(),consummable.getPrice());
+		            }
+		            else {
+		                throw new SQLException("Creating consummable failed, no ID obtained.");
+		            }
+		        }
+			}
+		} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+	            try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+	        }
+		return res;
 	}
 
 	@Override
-	public void update(Consummable obj) {
-		// TODO Auto-generated method stub
+	public void update(Consummable consummable) {
+		int nbRowsAffected = 0;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("UPDATE Consummable SET name ='"+consummable.getNameConsummable()+"', idCategory= '"+consummable.getIdCategory()+"',price= '"+consummable.getPrice()+"' WHERE Consummable.idConsummable = '"+consummable.getIdConsummable()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Updating consummable failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	@Override
-	public void delete(Consummable obj) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Consummable consummable) {
+		int nbRowsAffected = 0;
+		try {
+			statement = ConnectionToDB.getInstance();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Consummable WHERE idConsummable ='"+consummable.getIdConsummable()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting consummable failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
-
-
-
 }

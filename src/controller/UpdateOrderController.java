@@ -1,7 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.PrimitiveIterator.OfDouble;
+
 
 import model.Consummable;
 import model.Order;
@@ -29,11 +29,15 @@ public class UpdateOrderController {
     	currentSelection.forEach((n) -> ordersList.getChildren().add(new Pane(new Label(n.getIdOrder()+" "+ n.getTable().getCapacity()+ new ImageView("ui/views/img/user.png")+ " "+ n.getPrice()+" € "+ " Table n° "+n.getTable().getNumber())))); 
     }
 	
-	public void create(){}
-	
-	public static void main(String[] args) {
+	public void create(){
 		//Read all fields from the view and create an Order object
     	//Order order = new Order(discount, price, paid, note, consummablesOrder, table);
     	//OrderFacade.getInstance().create(order);
-    }
+	}
+	public static void find() {
+		//Get idOrder from view
+		//OrderFacade.getInstance().find(idOrder));
+	}
+	public void update() {}
+	public void delete() {}
 }
