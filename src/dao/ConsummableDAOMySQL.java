@@ -21,7 +21,8 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
     	ResultSet resultSet;
     	ArrayList<Consummable> result = new ArrayList<Consummable>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Consummable");
 			while(resultSet.next()){
 				Consummable tmp = new Consummable(resultSet.getInt("idConsummable"),resultSet.getString("Consummable.name"),resultSet.getFloat("price") );
 				result.add(tmp);
@@ -40,7 +41,8 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
     	ResultSet resultSet;
     	ArrayList<Consummable> result = new ArrayList<Consummable>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable where idCategory = '"+idCategory+"'");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Consummable where idCategory = '"+idCategory+"'");
 			while(resultSet.next()){
 				Consummable tmp = new Consummable(resultSet.getInt("idConsummable"),resultSet.getString("Consummable.name"),resultSet.getFloat("price") );
 				result.add(tmp);
@@ -78,7 +80,8 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 		ResultSet resultSet;
     	Consummable result = null;
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Consummable where idConsummable = "+idConsummable);
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Consummable where idConsummable = "+idConsummable);
 			while(resultSet.next()){
 				result = new Consummable(resultSet.getInt("idConsummable"), resultSet.getInt("idCategory"), resultSet.getString("name"), resultSet.getFloat("price"));
 			}
@@ -98,7 +101,7 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 		Consummable res = null;
 		int consID = -1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Consummable (idConsummable, idCategory, name, price) VALUES (NULL,'"+consummable.getIdCategory()+"','"+consummable.getNameConsummable()+"','"+consummable.getPrice()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -129,7 +132,7 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 	public void update(Consummable consummable) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Consummable SET name ='"+consummable.getNameConsummable()+"', idCategory= '"+consummable.getIdCategory()+"',price= '"+consummable.getPrice()+"' WHERE Consummable.idConsummable = '"+consummable.getIdConsummable()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating consummable failed.");
@@ -147,7 +150,7 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 	public void delete(Consummable consummable) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Consummable WHERE idConsummable ='"+consummable.getIdConsummable()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting consummable failed.");

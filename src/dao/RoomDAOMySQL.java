@@ -21,9 +21,10 @@ public class RoomDAOMySQL extends RoomDAO {
     public ArrayList<Room> readAll() {
 		ArrayList<Room> res = new ArrayList<>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("SELECT distinct (Room.idRoom), Room.name, Room.WithTables FROM Room");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("SELECT distinct (Room.idRoom), COUNT(T.idTable) AS nbTable, Room.name, Room.WithTables FROM Room JOIN Tabl T ON T.idRoom = Room.idRoom GROUP BY Room.idRoom;");
 			while (resultSet.next()) {
-				res.add(new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"), resultSet.getInt("Orders.WithTables") == 0? false : true));
+				res.add(new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"),resultSet.getInt("nbTable"), resultSet.getInt("Room.WithTables") == 0? false : true));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +44,8 @@ public class RoomDAOMySQL extends RoomDAO {
 		ArrayList<Table> roomTables = new ArrayList<>();
 		try {
 			//We search for the room and all the tables included into it
-			resultSet = ConnectionToDB.getInstance().executeQuery("SELECT Room.idRoom, Room.name, Room.WithTables, Tabl.idTable,Tabl.capacity,Tabl.maxCapacity,Tabl.number,Tabl.available,Tabl.idRoom\n" + 
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("SELECT Room.idRoom, Room.name, Room.WithTables, Tabl.idTable,Tabl.capacity,Tabl.maxCapacity,Tabl.number,Tabl.available,Tabl.idRoom\n" + 
 					"FROM Room, Tabl \n" + 
 					"WHERE Room.idRoom = Tabl.idRoom\n" + 
 					"AND Room.idRoom ='"+idRoom + "'");
@@ -77,7 +79,7 @@ public class RoomDAOMySQL extends RoomDAO {
 		Room res = null;
 		int roomID = -1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Room (idRoom, name, WithTables) VALUES ((NULL,'"+room.getName()+"','"+isWithTableInt+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -109,7 +111,7 @@ public class RoomDAOMySQL extends RoomDAO {
 		int isWithTableInt = room.isWithTables()? 1:0;
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Room SET name ='"+room.getName()+"', WithTables = '"+ isWithTableInt +"' WHERE Room.idRoom = '"+room.getIdRoom()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating room failed.");
@@ -127,7 +129,7 @@ public class RoomDAOMySQL extends RoomDAO {
 	public void delete(Room room) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Room WHERE idRoom ='"+room.getIdRoom()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting room failed.");

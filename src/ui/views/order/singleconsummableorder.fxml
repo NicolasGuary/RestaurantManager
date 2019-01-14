@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="550.0" style="-fx-background-color: white; -fx-border-color: c8c8c8;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="350.0" style="-fx-padding: 10; -fx-spacing: 5;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Name" id="nameConsummable">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label id="priceConsummable" style="-fx-text-fill: #5b5b5b;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </left>
+   <right>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

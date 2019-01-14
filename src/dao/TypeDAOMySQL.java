@@ -21,7 +21,8 @@ public class TypeDAOMySQL extends TypeDAO {
     	ResultSet resultSet;
     	ArrayList<Type> result = new ArrayList<Type>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Type");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Type");
 			while(resultSet.next()){
 				Type tmp = new Type(resultSet.getInt("idType"),resultSet.getString("Type.name"));
 				result.add(tmp);
@@ -59,7 +60,8 @@ public class TypeDAOMySQL extends TypeDAO {
 		ResultSet resultSet;
     	Type result =null;
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Type where idType = "+idType);
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Type where idType = "+idType);
 			while(resultSet.next()){
 				result = new Type(resultSet.getInt("idType"), resultSet.getString("name"));
 			}
@@ -79,7 +81,7 @@ public class TypeDAOMySQL extends TypeDAO {
 		Type res = null;
 		int typeID = -1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Type (idType, name) VALUES (NULL,'"+type.getNameType()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -110,7 +112,7 @@ public class TypeDAOMySQL extends TypeDAO {
 	public void update(Type type) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Type SET name ='"+type.getNameType() +"' WHERE Type.idType = '"+type.getIdType()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating type failed.");
@@ -128,7 +130,7 @@ public class TypeDAOMySQL extends TypeDAO {
 	public void delete(Type type) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Type WHERE idType ='"+type.getIdType()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting type failed.");

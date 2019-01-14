@@ -81,11 +81,13 @@
                </image>
             </ImageView>
         	<Button id="deleteButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;">
-	            <ImageView fitHeight="35.0" fitWidth="30.0" preserveRatio="true">
-	               <image>
-	                  <Image url="@../img/trash.png" />
-	               </image>
-	            </ImageView>
+	        	<graphic>
+		            <ImageView fitHeight="35.0" fitWidth="30.0" preserveRatio="true">
+		               <image>
+		                  <Image url="@../img/trash.png" />
+		               </image>
+		            </ImageView>
+	            </graphic>
             </Button>
          </children>
       </HBox>

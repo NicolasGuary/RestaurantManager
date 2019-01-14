@@ -14,4 +14,8 @@ public class HomeController {
 	public void handleReadOrder(){
 		router.activate("readAllOrders");
 	}
+	
+	public void handleReadRoom(){
+		router.activate("readAllRooms");
+	}
 }

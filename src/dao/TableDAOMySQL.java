@@ -21,7 +21,8 @@ public class TableDAOMySQL extends TableDAO {
     	ResultSet resultSet;
     	ArrayList<Table> result = new ArrayList<>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Tabl");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Tabl");
 			while(resultSet.next()){
 				boolean available = resultSet.getInt("available")==0 ?false : true;
 				Table tmp = new Table(resultSet.getInt("idTable"),resultSet.getInt("idRoom"),resultSet.getInt("number"),resultSet.getInt("capacity"),resultSet.getInt("maxCapacity"),available);
@@ -41,7 +42,8 @@ public class TableDAOMySQL extends TableDAO {
     	ResultSet resultSet;
     	ArrayList<Table> result = new ArrayList<>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Tabl where idRoom ='"+idRoom+"'");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Tabl where idRoom ='"+idRoom+"'");
 			while(resultSet.next()){
 				boolean available = resultSet.getInt("available")==0 ?false : true;
 				Table tmp = new Table(resultSet.getInt("idTable"),resultSet.getInt("idRoom"),resultSet.getInt("number"),resultSet.getInt("capacity"),resultSet.getInt("maxCapacity"),available);
@@ -62,7 +64,8 @@ public class TableDAOMySQL extends TableDAO {
 		ResultSet resultSet;
     	Table result = null;
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Tabl where idTable = "+idTable);
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Tabl where idTable = "+idTable);
 			while(resultSet.next()){
 				boolean available = resultSet.getInt("available")==0 ?false : true;
 				result = new Table(resultSet.getInt("idTable"),resultSet.getInt("idRoom"),resultSet.getInt("number"),resultSet.getInt("capacity"),resultSet.getInt("maxCapacity"),available);
@@ -84,7 +87,7 @@ public class TableDAOMySQL extends TableDAO {
 		int availableInt = table.isAvailable() ? 1:0;
 		int tableID = -1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Tabl (idTable, idRoom, available, capacity, maxCapacity, number) VALUES (NULL,'"+table.getIdRoom()+"','"+availableInt+"','"+ table.getCapacity() +"','"+table.getMaxCapacity()+"','"+table.getNumber()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -117,7 +120,7 @@ public class TableDAOMySQL extends TableDAO {
 		int nbRowsAffected = 0;
 		int availableInt = table.isAvailable() ? 1:0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Tabl SET available ='"+availableInt+"', capacity= '"+table.getCapacity()+"', maxCapacity='"+ table.getMaxCapacity() +"', idRoom='"+table.getIdRoom()+"',number'"+table.getNumber()+"' WHERE Tabl.idTable = '"+table.getIdTable()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating table failed. No rows affected");
@@ -135,7 +138,7 @@ public class TableDAOMySQL extends TableDAO {
 	public void delete(Table table) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Tabl WHERE idTable ='"+table.getIdTable()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting table failed.");

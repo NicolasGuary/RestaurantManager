@@ -54,6 +54,10 @@ public class Consummable {
 		this.price = price;
 	}
 	
+	public String toString(){
+		return this.getNameConsummable();
+	}
+	
 	
 	
 	

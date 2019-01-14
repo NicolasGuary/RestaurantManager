@@ -7,6 +7,7 @@ public class Room {
 	private int idRoom;
 	private String name;
 	private ArrayList<Table> tables;
+	private int nbTables;
 	private boolean withTables;
 	
 	public Room(int idRoom, String name, ArrayList<Table> tables, boolean withTables) {
@@ -17,6 +18,15 @@ public class Room {
 		this.withTables = withTables;
 	}
 
+	public Room(int idRoom, String name, int nbTables, boolean withTables) {
+		super();
+		this.idRoom = idRoom;
+		this.name = name;
+		this.nbTables=nbTables;
+		this.withTables = withTables;
+	}
+	
+	
 	//Constructor without any tables
 	public Room(int idRoom, String name, boolean withTables) {
 		super();
@@ -38,6 +48,14 @@ public class Room {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getNbTables() {
+		return nbTables;
+	}
+
+	public void setNbTables(int nbTables) {
+		this.nbTables = nbTables;
 	}
 
 	public ArrayList<Table> getTables() {

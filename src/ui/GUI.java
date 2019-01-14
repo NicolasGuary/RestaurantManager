@@ -41,6 +41,8 @@ public class GUI extends Application {
     	r.add("home", "views/home.fxml");
     	r.add("readAllConsummables", "views/consummable/consummables.fxml");
     	r.add("readAllOrders", "views/order/listorders.fxml");
+    	r.add("readAllRooms", "views/rooms/listRooms.fxml");
     	r.add("updateOrder", "views/order/updateOrder.fxml");
+    	r.add("updateRoom", "views/rooms/updateRoom.fxml");
     }
 }
