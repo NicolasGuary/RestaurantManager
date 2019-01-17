@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,15 +11,29 @@ import java.util.ArrayList;
 import model.Table;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class TableDAOMySQL.
+ */
 public class TableDAOMySQL extends TableDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new table DAO my SQL.
+     */
     public TableDAOMySQL() {
     }
 
+    /* (non-Javadoc)
+     * @see dao.TableDAO#readAll()
+     */
     public ArrayList<Table> readAll() {
     	ResultSet resultSet;
     	ArrayList<Table> result = new ArrayList<>();
@@ -38,6 +55,9 @@ public class TableDAOMySQL extends TableDAO {
 		return result;
     }
     
+    /* (non-Javadoc)
+     * @see dao.TableDAO#readAll(int)
+     */
     public ArrayList<Table> readAll(int idRoom) {
     	ResultSet resultSet;
     	ArrayList<Table> result = new ArrayList<>();
@@ -59,6 +79,9 @@ public class TableDAOMySQL extends TableDAO {
 		return result;
     }
     
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Table find(int idTable) {
 		ResultSet resultSet;
@@ -80,6 +103,9 @@ public class TableDAOMySQL extends TableDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Table create(Table table) {
 		int nbRowsAffected = 0;
@@ -115,6 +141,9 @@ public class TableDAOMySQL extends TableDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Table table) {
 		int nbRowsAffected = 0;
@@ -134,6 +163,9 @@ public class TableDAOMySQL extends TableDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Table table) {
 		int nbRowsAffected = 0;
@@ -152,6 +184,9 @@ public class TableDAOMySQL extends TableDAO {
 			}
 	}
 	
+    /**
+     * Close.
+     */
     private void close() {
         try {
             if (resultSet != null) {
