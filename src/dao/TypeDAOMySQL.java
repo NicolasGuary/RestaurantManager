@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,15 +11,29 @@ import java.util.ArrayList;
 import model.Type;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class TypeDAOMySQL.
+ */
 public class TypeDAOMySQL extends TypeDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new type DAO my SQL.
+     */
     public TypeDAOMySQL() {
     }
 
+    /* (non-Javadoc)
+     * @see dao.TypeDAO#readAll()
+     */
     public ArrayList<Type> readAll() {
     	ResultSet resultSet;
     	ArrayList<Type> result = new ArrayList<Type>();
@@ -37,6 +54,9 @@ public class TypeDAOMySQL extends TypeDAO {
 		return result;
     }
     
+    /**
+     * Close.
+     */
     private void close() {
         try {
             if (resultSet != null) {
@@ -55,6 +75,9 @@ public class TypeDAOMySQL extends TypeDAO {
         }
     }
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Type find(int idType) {
 		ResultSet resultSet;
@@ -75,6 +98,9 @@ public class TypeDAOMySQL extends TypeDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Type create(Type type) {
 		int nbRowsAffected = 0;
@@ -108,6 +134,9 @@ public class TypeDAOMySQL extends TypeDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Type type) {
 		int nbRowsAffected = 0;
@@ -126,6 +155,9 @@ public class TypeDAOMySQL extends TypeDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Type type) {
 		int nbRowsAffected = 0;

@@ -1,14 +1,22 @@
+/*
+ * 
+ */
 package dao;
 
 import java.util.ArrayList;
 
 import model.Category;
 
+/**
+ * The Class CategoryDAO.
+ */
 public abstract class CategoryDAO extends DAO<Category> {
 
 	/**
-	 * @param idType
-	 * @return
+	 * Read all.
+	 *
+	 * @param idType the id type
+	 * @return the array list
 	 */
 	public abstract ArrayList<Category> readAll(int idType);
 	

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package jdbc;
 
 import java.sql.Connection;
@@ -6,11 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * The Class ConnectionToDB.
+ */
 public class ConnectionToDB {
 
+	/** The statement. */
 	private static Statement statement = null;
+	
+	/** The connection. */
 	private static Connection connection = null;
 	
+    /**
+     * Gets the single instance of ConnectionToDB.
+     *
+     * @return single instance of ConnectionToDB
+     * @throws Exception the exception
+     */
     public static Statement getInstance() throws Exception{
     	if(statement==null){
         	try {
@@ -29,6 +44,12 @@ public class ConnectionToDB {
     	return statement;
     }
     
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     * @throws Exception the exception
+     */
     public static Connection getConnection() throws Exception{
     	if(connection==null){
         	try {

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package controller;
 
 import java.io.IOException;
@@ -37,40 +40,64 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.ImageView;
 
+/**
+ * The Class UpdateOrderController.
+ */
 public class UpdateOrderController {
 
+	/** The router. */
 	private Router router = Router.getInstance();
+	
+	/** The cf. */
 	private ConsummableFacade cf = ConsummableFacade.getInstance();
+	
+	/** The of. */
 	private OrderFacade of = OrderFacade.getInstance();
+	
+	/** The tf. */
 	private TableFacade tf = TableFacade.getInstance();
+	
+	/** The consummables order. */
 	private ArrayList<Consummable> consummablesOrder = new ArrayList<Consummable>();
 	
+	/** The orders list. */
 	@FXML
 	VBox ordersList;
 	
+	/** The discount input. */
 	@FXML
 	TextField discountInput;
 
+	/** The is paid input. */
 	@FXML
 	CheckBox isPaidInput;
 	
+	/** The table input. */
 	@FXML
 	ChoiceBox<Integer> tableInput;
 	
+	/** The note input. */
 	@FXML
 	TextField noteInput;
 
+	/** The scroll P. */
 	@FXML
 	ScrollPane scrollP; 
 	
+	/** The vb. */
 	VBox vb;
 	
+	/** The test. */
 	Label test;
 	
 	
+	/** The table list. */
 	private ArrayList<Table> tableList;
 	
 	
+    /**
+     * Initialize.
+     */
     public void initialize() {
     	scrollP.setHbarPolicy(ScrollBarPolicy.NEVER);
         vb = new VBox();
@@ -92,6 +119,9 @@ public class UpdateOrderController {
     	});
     }
     
+    /**
+     * Show add consummable dialog.
+     */
     public void showAddConsummableDialog(){
     	List<Consummable> consummableChoice = new ArrayList<>();
     	ArrayList<Consummable> consummableList = cf.readAll();
@@ -108,6 +138,11 @@ public class UpdateOrderController {
     	result.ifPresent(cons -> addConsummable(cons));
     }
     
+    /**
+     * Adds the consummable.
+     *
+     * @param cons the cons
+     */
     public void addConsummable(Consummable cons){
 		try {
 			BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/order/singleconsummableorder.fxml"));
@@ -123,6 +158,9 @@ public class UpdateOrderController {
 		}
     }
 	
+	/**
+	 * Creates the.
+	 */
 	public void create(){
 		String discString = discountInput.getText();
 		float discountValue = 0;
@@ -140,14 +178,28 @@ public class UpdateOrderController {
     	router.activate("readAllOrders");
 	}
 	
+	/**
+	 * Go to list.
+	 */
 	public void goToList(){
     	router.activate("readAllOrders");
 	}
 	
+	/**
+	 * Find.
+	 */
 	public static void find() {
 		//Get idOrder from view
 		//OrderFacade.getInstance().find(idOrder));
 	}
+	
+	/**
+	 * Update.
+	 */
 	public void update() {}
+	
+	/**
+	 * Delete.
+	 */
 	public void delete() {}
 }

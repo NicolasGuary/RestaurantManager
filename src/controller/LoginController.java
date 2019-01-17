@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package controller;
 
 
@@ -12,21 +15,32 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
+/**
+ * The Class LoginController.
+ */
 public class LoginController {
 	
+	/** The router. */
 	Router router = Router.getInstance();
 	
+	/** The login TF. */
 	@FXML
 	TextField loginTF;
 	
+	/** The password TF. */
 	@FXML
 	PasswordField passwordTF;
 	
+	/** The confirmation message. */
 	@FXML
 	Label confirmationMessage;
 
+	/** The uf. */
 	private UserFacade uf = UserFacade.getInstance();
 	
+    /**
+     * Initialize.
+     */
     public void initialize() {
     	//TOUCHE ENTR�E
     	loginTF.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -48,6 +62,9 @@ public class LoginController {
         });
     }
 
+    /**
+     * Handle login.
+     */
     @FXML
     private void handleLogin() {
     	String strLoginTF = loginTF.getText();
@@ -61,6 +78,9 @@ public class LoginController {
         }
     }
     
+    /**
+     * Handle cancel.
+     */
     @FXML
     private void handleCancel() {
 		router.activate("home");

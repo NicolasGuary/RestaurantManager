@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,15 +11,29 @@ import java.util.ArrayList;
 import model.Consummable;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class ConsummableDAOMySQL.
+ */
 public class ConsummableDAOMySQL extends ConsummableDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new consummable DAO my SQL.
+     */
     public ConsummableDAOMySQL() {
     }
 
+    /* (non-Javadoc)
+     * @see dao.ConsummableDAO#readAll()
+     */
     public ArrayList<Consummable> readAll() {
     	ResultSet resultSet;
     	ArrayList<Consummable> result = new ArrayList<Consummable>();
@@ -37,6 +54,9 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 		return result;
     }
     
+    /* (non-Javadoc)
+     * @see dao.ConsummableDAO#readAll(int)
+     */
     public ArrayList<Consummable> readAll(int idCategory) {
     	ResultSet resultSet;
     	ArrayList<Consummable> result = new ArrayList<Consummable>();
@@ -57,6 +77,9 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 		return result;
     }
     
+    /**
+     * Close.
+     */
     private void close() {
         try {
             if (resultSet != null) {
@@ -75,6 +98,9 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
         }
     }
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Consummable find(int idConsummable) {
 		ResultSet resultSet;
@@ -95,6 +121,9 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Consummable create(Consummable consummable) {
 		int nbRowsAffected = 0;
@@ -128,6 +157,9 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Consummable consummable) {
 		int nbRowsAffected = 0;
@@ -146,6 +178,9 @@ public class ConsummableDAOMySQL extends ConsummableDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Consummable consummable) {
 		int nbRowsAffected = 0;

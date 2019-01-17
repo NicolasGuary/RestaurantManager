@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,15 +11,29 @@ import java.util.ArrayList;
 import model.Category;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class CategoryDAOMySQL.
+ */
 public class CategoryDAOMySQL extends CategoryDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new category DAO my SQL.
+     */
     public CategoryDAOMySQL() {
     }
 
+    /* (non-Javadoc)
+     * @see dao.CategoryDAO#readAll(int)
+     */
     public ArrayList<Category> readAll(int idType) {
     	ResultSet resultSet;
     	ArrayList<Category> result = new ArrayList<Category>();
@@ -37,6 +54,9 @@ public class CategoryDAOMySQL extends CategoryDAO {
 		return result;
     }
     
+    /**
+     * Close.
+     */
     private void close() {
         try {
             if (resultSet != null) {
@@ -55,6 +75,9 @@ public class CategoryDAOMySQL extends CategoryDAO {
         }
     }
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Category find(int idCategory) {
 		ResultSet resultSet;
@@ -75,6 +98,9 @@ public class CategoryDAOMySQL extends CategoryDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Category create(Category category) {
 		int nbRowsAffected = 0;
@@ -108,6 +134,9 @@ public class CategoryDAOMySQL extends CategoryDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Category category) {
 		int nbRowsAffected = 0;
@@ -126,6 +155,9 @@ public class CategoryDAOMySQL extends CategoryDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Category category) {
 		int nbRowsAffected = 0;

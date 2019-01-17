@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package controller;
 
 import java.io.IOException;
@@ -20,17 +23,31 @@ import ui.Router;
 import facade.OrderFacade;
 import facade.RoomFacade;
 
+/**
+ * The Class ReadRoomController.
+ */
 public class ReadRoomController {
 
+	/** The scroll P. */
 	@FXML
 	ScrollPane scrollP;
+	
+	/** The router. */
 	private Router router = Router.getInstance();
+	
+	/** The rf. */
 	private RoomFacade rf = RoomFacade.getInstance();
 
+    /**
+     * Initialize.
+     */
     public void initialize() {
     	readAll();
     	}
 
+	/**
+	 * Read all.
+	 */
 	public void readAll(){
     	ArrayList<Room> currentSelection = rf.readAll();
     	scrollP.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -64,6 +81,9 @@ public class ReadRoomController {
 		}
 	}
 	
+	/**
+	 * Update room.
+	 */
 	public void updateRoom(){
 		router.activate("updateRoom");
     }

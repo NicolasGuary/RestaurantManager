@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,14 +12,28 @@ import model.Room;
 import model.Table;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class RoomDAOMySQL.
+ */
 public class RoomDAOMySQL extends RoomDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new room DAO my SQL.
+     */
     public RoomDAOMySQL() {}
 
+    /* (non-Javadoc)
+     * @see dao.RoomDAO#readAll()
+     */
     //We get all the rooms but we don't need the tables they have (we just display the name of the room and the id to view a specific room)
     public ArrayList<Room> readAll() {
 		ArrayList<Room> res = new ArrayList<>();
@@ -37,6 +54,9 @@ public class RoomDAOMySQL extends RoomDAO {
 		return res;
     }
     
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Room find(int idRoom) {
 		ResultSet resultSet;
@@ -72,6 +92,9 @@ public class RoomDAOMySQL extends RoomDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Room create(Room room) {
 		int nbRowsAffected = 0;
@@ -106,6 +129,9 @@ public class RoomDAOMySQL extends RoomDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Room room) {
 		int isWithTableInt = room.isWithTables()? 1:0;
@@ -125,6 +151,9 @@ public class RoomDAOMySQL extends RoomDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Room room) {
 		int nbRowsAffected = 0;
@@ -156,7 +185,10 @@ public class RoomDAOMySQL extends RoomDAO {
 			}
 	}
 	
-	 private void close() {
+	 /**
+ 	 * Close.
+ 	 */
+ 	private void close() {
 	        try {
 	            if (resultSet != null) {
 	                resultSet.close();

@@ -1,40 +1,60 @@
+/*
+ * 
+ */
 package dao;
 
 
+/**
+ * A factory for creating AbstractDAO objects.
+ */
 public abstract class AbstractDAOFactory {
 
     /**
-     * @return
+     * Gets the user DAO.
+     *
+     * @return the user DAO
      */
     public abstract UserDAO getUserDAO();
 
 	/**
-	 * @return
+	 * Gets the consummable DAO.
+	 *
+	 * @return the consummable DAO
 	 */
 	public abstract ConsummableDAO getConsummableDAO();
 	
 	/**
-	 * @return
+	 * Gets the order DAO.
+	 *
+	 * @return the order DAO
 	 */
 	public abstract OrderDAO getOrderDAO();
 
 	/**
-	 * @return
+	 * Gets the type DAO.
+	 *
+	 * @return the type DAO
 	 */
 	public abstract TypeDAO getTypeDAO();
 
 	/**
-	 * @return
+	 * Gets the category DAO.
+	 *
+	 * @return the category DAO
 	 */
 	public abstract CategoryDAO getCategoryDAO();
 	
 	/**
-	 * @return
+	 * Gets the room DAO.
+	 *
+	 * @return the room DAO
 	 */
 	public abstract RoomDAO getRoomDAO();
 	
 	/**
-	 * @return
+	 * Gets the table DAO.
+	 *
+	 * @return the table DAO
 	 */
 	public abstract TableDAO getTableDAO();
 }
