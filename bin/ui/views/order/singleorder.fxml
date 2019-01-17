@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -79,11 +80,13 @@
                   <Image url="@../img/search.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="35.0" fitWidth="30.0" preserveRatio="true">
-               <image>
-                  <Image url="@../img/trash.png" />
-               </image>
-            </ImageView>
+        	<Button id="deleteButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;">
+	            <ImageView fitHeight="35.0" fitWidth="30.0" preserveRatio="true">
+	               <image>
+	                  <Image url="@../img/trash.png" />
+	               </image>
+	            </ImageView>
+            </Button>
          </children>
       </HBox>
    </right>
