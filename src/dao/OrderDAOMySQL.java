@@ -245,6 +245,19 @@ public class OrderDAOMySQL extends OrderDAO {
 		int nbRowsAffected = 0;
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Contains WHERE idOrder ='"+order.getIdOrder()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting order from contains failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		try {
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Orders WHERE idOrder ='"+order.getIdOrder()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting order failed.");

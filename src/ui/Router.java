@@ -1,10 +1,8 @@
 package ui;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 

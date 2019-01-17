@@ -130,6 +130,19 @@ public class RoomDAOMySQL extends RoomDAO {
 		int nbRowsAffected = 0;
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Tabl WHERE idRoom ='"+room.getIdRoom()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting room failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		try {
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Room WHERE idRoom ='"+room.getIdRoom()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting room failed.");
