@@ -71,5 +71,6 @@ public class GUI extends Application {
     	r.add("readAllOrders", "views/order/listorders.fxml");
     	r.add("readAllRooms", "views/rooms/listRooms.fxml");
     	r.add("updateOrder", "views/order/updateOrder.fxml");
+    	r.add("updateRoom", "views/rooms/updateRoom.fxml");
     }
 }
