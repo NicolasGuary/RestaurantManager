@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package controller;
 
 import java.io.IOException;
@@ -26,19 +29,32 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TitledPane;
 
+/**
+ * The Class ReadConsummableController.
+ */
 public class ReadConsummableController {
 
+	/** The scroll P. */
 	@FXML
 	ScrollPane scrollP;
 	
+	/** The router. */
 	private Router router = Router.getInstance();
+	
+	/** The cf. */
 	private ConsummableFacade cf = ConsummableFacade.getInstance();
 	
+	/** The accordion. */
 	@FXML
 	Accordion accordion;
+	
+	/** The consummables list. */
 	@FXML
 	VBox consummablesList;
 	
+    /**
+     * Initialize.
+     */
     public void initialize() {
     	
     	ArrayList<Type> types = cf.readAllType();
@@ -104,6 +120,11 @@ public class ReadConsummableController {
 		}
     }
 	
+	/**
+	 * Read all.
+	 *
+	 * @param category the category
+	 */
 	public void readAll(String category){
 		
 	}

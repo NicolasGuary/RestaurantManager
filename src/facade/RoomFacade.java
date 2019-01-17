@@ -54,4 +54,12 @@ public class RoomFacade {
 		return this.tables;
 	}
 
+	public void delete(Room room) {
+		 this.rdao.delete(room);
+	}
+	
+	public void create(Room room){
+		this.rdao.create(room);
+	}
+
 }

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,21 +12,36 @@ import model.Room;
 import model.Table;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class RoomDAOMySQL.
+ */
 public class RoomDAOMySQL extends RoomDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new room DAO my SQL.
+     */
     public RoomDAOMySQL() {}
 
+    /* (non-Javadoc)
+     * @see dao.RoomDAO#readAll()
+     */
     //We get all the rooms but we don't need the tables they have (we just display the name of the room and the id to view a specific room)
     public ArrayList<Room> readAll() {
 		ArrayList<Room> res = new ArrayList<>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("SELECT distinct (Room.idRoom), Room.name, Room.WithTables FROM Room");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("SELECT distinct (Room.idRoom), COUNT(T.idTable) AS nbTable, Room.name, Room.WithTables FROM Room JOIN Tabl T ON T.idRoom = Room.idRoom GROUP BY Room.idRoom;");
 			while (resultSet.next()) {
-				res.add(new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"), resultSet.getInt("Orders.WithTables") == 0? false : true));
+				res.add(new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"),resultSet.getInt("nbTable"), resultSet.getInt("Room.WithTables") == 0? false : true));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,6 +54,9 @@ public class RoomDAOMySQL extends RoomDAO {
 		return res;
     }
     
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Room find(int idRoom) {
 		ResultSet resultSet;
@@ -43,7 +64,8 @@ public class RoomDAOMySQL extends RoomDAO {
 		ArrayList<Table> roomTables = new ArrayList<>();
 		try {
 			//We search for the room and all the tables included into it
-			resultSet = ConnectionToDB.getInstance().executeQuery("SELECT Room.idRoom, Room.name, Room.WithTables, Tabl.idTable,Tabl.capacity,Tabl.maxCapacity,Tabl.number,Tabl.available,Tabl.idRoom\n" + 
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("SELECT Room.idRoom, Room.name, Room.WithTables, Tabl.idTable,Tabl.capacity,Tabl.maxCapacity,Tabl.number,Tabl.available,Tabl.idRoom\n" + 
 					"FROM Room, Tabl \n" + 
 					"WHERE Room.idRoom = Tabl.idRoom\n" + 
 					"AND Room.idRoom ='"+idRoom + "'");
@@ -70,6 +92,9 @@ public class RoomDAOMySQL extends RoomDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Room create(Room room) {
 		int nbRowsAffected = 0;
@@ -77,7 +102,7 @@ public class RoomDAOMySQL extends RoomDAO {
 		Room res = null;
 		int roomID = -1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Room (idRoom, name, WithTables) VALUES ((NULL,'"+room.getName()+"','"+isWithTableInt+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -104,12 +129,15 @@ public class RoomDAOMySQL extends RoomDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Room room) {
 		int isWithTableInt = room.isWithTables()? 1:0;
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Room SET name ='"+room.getName()+"', WithTables = '"+ isWithTableInt +"' WHERE Room.idRoom = '"+room.getIdRoom()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating room failed.");
@@ -123,11 +151,27 @@ public class RoomDAOMySQL extends RoomDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Room room) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Tabl WHERE idRoom ='"+room.getIdRoom()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting room failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		try {
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Room WHERE idRoom ='"+room.getIdRoom()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting room failed.");
@@ -141,7 +185,10 @@ public class RoomDAOMySQL extends RoomDAO {
 			}
 	}
 	
-	 private void close() {
+	 /**
+ 	 * Close.
+ 	 */
+ 	private void close() {
 	        try {
 	            if (resultSet != null) {
 	                resultSet.close();

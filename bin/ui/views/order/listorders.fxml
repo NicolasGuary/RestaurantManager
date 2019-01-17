@@ -24,7 +24,7 @@
             <Button onAction="#updateOrder" mnemonicParsing="false" style="-fx-background-color: green;" text="Create a new order" textFill="WHITE" BorderPane.alignment="CENTER" />
          </bottom>
          <center>
-            <ScrollPane fx:id="scrollP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         	<ScrollPane fx:id="scrollP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </center>

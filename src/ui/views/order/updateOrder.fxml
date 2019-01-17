@@ -7,16 +7,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="controller.UpdateOrderController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateOrderController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
          <opaqueInsets>
@@ -25,44 +21,14 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
                <children>
+                  <HBox alignment="CENTER" prefHeight="23.0" prefWidth="580.0" style="-fx-padding: 0 0 5;">
+                     <children>
+                        <Button onAction="#showAddConsummableDialog" mnemonicParsing="false" text="Add Consummable" />
+                     </children>
+                  </HBox>
                   <HBox prefHeight="183.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
-                        <ScrollPane prefHeight="183.0" prefWidth="592.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="186.0" prefWidth="555.0">
-                                 <children>
-                                    <Pane layoutX="5.0" layoutY="6.0" prefHeight="50.0" prefWidth="553.0" style="-fx-border-color: grey;">
-                                       <children>
-                                          <HBox prefHeight="50.0" prefWidth="553.0" style="-fx-alignment: center; -fx-spacing: 10;">
-                                             <children>
-                                                <Label text="Steak &amp; Fries">
-                                                   <font>
-                                                      <Font size="19.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label text="($10)" textFill="#5b5b5b">
-                                                   <font>
-                                                      <Font size="19.0" />
-                                                   </font>
-                                                </Label>
-                                                <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: 50; -fx-cursor: HAND;">
-                                                   <image>
-                                                      <Image url="@edit.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: 50; -fx-cursor: HAND;">
-                                                   <image>
-                                                      <Image url="@bin.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
+                        <ScrollPane fx:id="scrollP" prefHeight="183.0" prefWidth="592.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="1.0" prefWidth="580.0" style="-fx-alignment: center;">
@@ -76,7 +42,7 @@
                         <HBox prefHeight="37.0" prefWidth="580.0" style="-fx-alignment: center;">
                            <children>
                               <Label style="-fx-padding: 10;" text="Table : " />
-                              <ChoiceBox fx:id="tableInput" id="Room" accessibleText="Room" prefWidth="150.0" />
+                              <ChoiceBox id="Room" fx:id="tableInput" accessibleText="Room" prefWidth="150.0" />
                            </children>
                         </HBox>
                      </children>
@@ -92,22 +58,17 @@
          <bottom>
             <HBox prefHeight="7.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 30;" BorderPane.alignment="CENTER">
                <children>
-                  <Button onAction="#goToList" mnemonicParsing="false" style="-fx-background-color: orange; -fx-cursor:HAND;" text="Cancel" textFill="WHITE" />
-                  <Button onAction="#create" layoutX="267.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor:HAND;" text="Confirm" textFill="WHITE" />
+                  <Button mnemonicParsing="false" onAction="#goToList" style="-fx-background-color: orange; -fx-cursor:HAND;" text="Cancel" textFill="WHITE" />
+                  <Button layoutX="267.0" layoutY="10.0" mnemonicParsing="false" onAction="#create" style="-fx-background-color: green; -fx-cursor:HAND;" text="Confirm" textFill="WHITE" />
                </children>
             </HBox>
          </bottom>
          <top>
             <HBox prefHeight="6.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 8;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-padding: 5;" text="Order nÂ°1" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-padding: 5;" text="Order" textAlignment="CENTER">
                      <font>
                         <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Label text="(0€)" textFill="#5e5e5e">
-                     <font>
-                        <Font size="17.0" />
                      </font>
                   </Label>
                   <CheckBox fx:id="isPaidInput" mnemonicParsing="false" text="Paid ?" textFill="#797979" />

@@ -24,7 +24,8 @@ public class OrderDAOMySQL extends OrderDAO {
     	ArrayList<Order> result = new ArrayList<Order>();
 		if (paid) {
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
+				statement = ConnectionToDB.getConnection().createStatement();
+				resultSet = statement.executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
 						"from Orders, Tabl\n" + 
 						"where Orders.idTable = Tabl.idTable\n" + 
 						"and Orders.paid = 1");
@@ -49,7 +50,8 @@ public class OrderDAOMySQL extends OrderDAO {
 	        }
 		} else {
 			try {
-				resultSet = ConnectionToDB.getInstance().executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
+				statement = ConnectionToDB.getConnection().createStatement();
+				resultSet = statement.executeQuery("select distinct Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable, Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available\n" + 
 						"from Orders, Tabl\n" + 
 						"where Orders.idTable = Tabl.idTable\n" + 
 						"and Orders.paid = 0");
@@ -101,11 +103,10 @@ public class OrderDAOMySQL extends OrderDAO {
 		Order res = null;
 		int orderID = -1;
 		ArrayList<String> queries = new ArrayList<>();
-		int paidInt = order.isPaid()? 0:1;
+		int paidInt = order.isPaid()? 1:0;
 	
 		try {
-			statement = ConnectionToDB.getInstance();
-			System.out.println("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+order.getDiscount()+"','"+order.getPrice()+"','"+ paidInt +"','"+order.getNote()+"','"+order.getTable().getIdTable()+"')");
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Orders (idOrder, discount, price, paid, note, idTable) VALUES (NULL,'"+order.getDiscount()+"','"+order.getPrice()+"','"+ paidInt +"','"+order.getNote()+"','"+order.getTable().getIdTable()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -157,7 +158,8 @@ public class OrderDAOMySQL extends OrderDAO {
 		Table tableOrder = null;
 		try {
 			//We look up for all the Order, his Table, and all the Consummables included into it
-			resultSet = ConnectionToDB.getInstance().executeQuery("select Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable,Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available, Consummable.idConsummable, Consummable.name, Consummable.price, Consummable.idCategory\n" + 
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable,Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available, Consummable.idConsummable, Consummable.name, Consummable.price, Consummable.idCategory\n" + 
 					"from Orders, Tabl, Consummable, Contains\n" + 
 					"where Tabl.idTable = Orders.idTable\n" + 
 					"and Orders.idOrder = Contains.idOrder\n" + 
@@ -193,7 +195,7 @@ public class OrderDAOMySQL extends OrderDAO {
 		ArrayList<String> queries = new ArrayList<>();
 		int paidInt = order.isPaid()? 0:1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Orders SET discount ='"+order.getDiscount()+"', price= '"+order.getPrice()+"', paid='"+ paidInt +"', note='"+order.getNote()+"',idTable'"+order.getTable().getIdTable()+"' WHERE Orders.idOrder = '"+order.getIdOrder()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating order failed.");
@@ -208,7 +210,7 @@ public class OrderDAOMySQL extends OrderDAO {
 		
 		    //We drop all the consummables previously contained by this Order and then we add all the new one
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Contains WHERE idOrder = '"+order.getIdOrder()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating contains failed.");
@@ -242,7 +244,20 @@ public class OrderDAOMySQL extends OrderDAO {
 	public void delete(Order order) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
+			nbRowsAffected = statement.executeUpdate("DELETE FROM Contains WHERE idOrder ='"+order.getIdOrder()+"'");
+			if(nbRowsAffected == 0){
+				throw new SQLException("Deleting order from contains failed.");
+		    } 
+			statement.close();
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		try {
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Orders WHERE idOrder ='"+order.getIdOrder()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting order failed.");

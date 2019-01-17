@@ -14,7 +14,7 @@ public class GUI extends Application {
     public static Stage getPrimaryStage(){
     	return primaryStage;
     }
-    
+     
     public static void setPrimaryStage(Stage st){
     	primaryStage = st;
     }

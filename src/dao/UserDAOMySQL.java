@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,15 +11,29 @@ import java.util.ArrayList;
 import model.User;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class UserDAOMySQL.
+ */
 public class UserDAOMySQL extends UserDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new user DAO my SQL.
+     */
     public UserDAOMySQL() {
     }
 
+    /* (non-Javadoc)
+     * @see dao.UserDAO#find(java.lang.String, java.lang.String)
+     */
     public boolean find(String nick, String password) {
     	boolean found = false;
     	ResultSet resultSet;
@@ -33,6 +50,9 @@ public class UserDAOMySQL extends UserDAO {
 		return found;
     }
     
+    /* (non-Javadoc)
+     * @see dao.UserDAO#readAll()
+     */
     public ArrayList<User> readAll() {
     	ResultSet resultSet;
     	ArrayList<User> result = new ArrayList<User>();
@@ -54,6 +74,9 @@ public class UserDAOMySQL extends UserDAO {
 		
     
     
+    /**
+     * Close.
+     */
     private void close() {
         try {
             if (resultSet != null) {
@@ -72,23 +95,35 @@ public class UserDAOMySQL extends UserDAO {
         }
     }
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public User find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public User create(User obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(User obj) {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(User obj) {
 		// TODO Auto-generated method stub

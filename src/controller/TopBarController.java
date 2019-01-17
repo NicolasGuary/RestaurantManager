@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package controller;
 
 import java.io.IOException;
@@ -18,19 +21,36 @@ import javafx.scene.layout.BorderPane;
 import ui.GUI;
 import ui.Router;
 
+/**
+ * The Class TopBarController.
+ */
 public class TopBarController implements Observer {
 
+	/** The account image. */
 	@FXML
 	private ImageView accountImage;
+	
+	/** The log button. */
 	@FXML
 	private Button logButton;
+	
+	/** The welcome. */
 	@FXML
 	private Label welcome;
+	
+	/** The main content. */
 	@FXML
 	private BorderPane mainContent;
+	
+	/** The uf. */
 	private UserFacade uf = UserFacade.getInstance();
+	
+	/** The router. */
 	private Router router = Router.getInstance() ;
 
+	/**
+	 * Initialize.
+	 */
 	public void initialize(){
 		uf.addObserver(this);
 		try {
@@ -41,14 +61,23 @@ public class TopBarController implements Observer {
 		}
 	}
 
+	/**
+	 * Handle login.
+	 */
 	public void handleLogin(){
 		router.activate("login");
 	}
 
+	/**
+	 * Handle home.
+	 */
 	public void handleHome(){
 		router.activate("home");
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		Image image;

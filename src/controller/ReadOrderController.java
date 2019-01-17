@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package controller;
 
 import java.io.IOException;
@@ -23,22 +26,41 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.ImageView;
 
+/**
+ * The Class ReadOrderController.
+ */
 public class ReadOrderController {
 
+	/** The scroll P. */
 	@FXML
 	ScrollPane scrollP;
+	
+	/** The router. */
 	private Router router = Router.getInstance();
+	
+	/** The of. */
 	private OrderFacade of = OrderFacade.getInstance();
 
+	/** The test. */
 	Label test;
+    
+    /**
+     * Initialize.
+     */
     public void initialize() {
     	readAll();
     }
 
+    /**
+     * Update order.
+     */
     public void updateOrder(){
 		router.activate("updateOrder");
     }
 
+	/**
+	 * Read all.
+	 */
 	public void readAll(){
     	ArrayList<Order> currentSelection = of.readAll(false);
     	scrollP.setHbarPolicy(ScrollBarPolicy.NEVER);

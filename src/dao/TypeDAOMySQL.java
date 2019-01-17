@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,20 +11,35 @@ import java.util.ArrayList;
 import model.Type;
 import jdbc.ConnectionToDB;
 
+/**
+ * The Class TypeDAOMySQL.
+ */
 public class TypeDAOMySQL extends TypeDAO {
 
+    /** The connect. */
     private Connection connect = null;
+    
+    /** The statement. */
     private Statement statement = null;
+    
+    /** The result set. */
     private ResultSet resultSet = null;
 	
+    /**
+     * Instantiates a new type DAO my SQL.
+     */
     public TypeDAOMySQL() {
     }
 
+    /* (non-Javadoc)
+     * @see dao.TypeDAO#readAll()
+     */
     public ArrayList<Type> readAll() {
     	ResultSet resultSet;
     	ArrayList<Type> result = new ArrayList<Type>();
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Type");
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Type");
 			while(resultSet.next()){
 				Type tmp = new Type(resultSet.getInt("idType"),resultSet.getString("Type.name"));
 				result.add(tmp);
@@ -36,6 +54,9 @@ public class TypeDAOMySQL extends TypeDAO {
 		return result;
     }
     
+    /**
+     * Close.
+     */
     private void close() {
         try {
             if (resultSet != null) {
@@ -54,12 +75,16 @@ public class TypeDAOMySQL extends TypeDAO {
         }
     }
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#find(int)
+	 */
 	@Override
 	public Type find(int idType) {
 		ResultSet resultSet;
     	Type result =null;
 		try {
-			resultSet = ConnectionToDB.getInstance().executeQuery("select * from Type where idType = "+idType);
+			statement = ConnectionToDB.getConnection().createStatement();
+			resultSet = statement.executeQuery("select * from Type where idType = "+idType);
 			while(resultSet.next()){
 				result = new Type(resultSet.getInt("idType"), resultSet.getString("name"));
 			}
@@ -73,13 +98,16 @@ public class TypeDAOMySQL extends TypeDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#create(java.lang.Object)
+	 */
 	@Override
 	public Type create(Type type) {
 		int nbRowsAffected = 0;
 		Type res = null;
 		int typeID = -1;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("INSERT INTO Type (idType, name) VALUES (NULL,'"+type.getNameType()+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -106,11 +134,14 @@ public class TypeDAOMySQL extends TypeDAO {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Type type) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("UPDATE Type SET name ='"+type.getNameType() +"' WHERE Type.idType = '"+type.getIdType()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Updating type failed.");
@@ -124,11 +155,14 @@ public class TypeDAOMySQL extends TypeDAO {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.DAO#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Type type) {
 		int nbRowsAffected = 0;
 		try {
-			statement = ConnectionToDB.getInstance();
+			statement = ConnectionToDB.getConnection().createStatement();
 			nbRowsAffected = statement.executeUpdate("DELETE FROM Type WHERE idType ='"+type.getIdType()+"'");
 			if(nbRowsAffected == 0){
 				throw new SQLException("Deleting type failed.");
