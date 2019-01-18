@@ -39,7 +39,7 @@ public class RoomDAOMySQL extends RoomDAO {
 		ArrayList<Room> res = new ArrayList<>();
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
-			resultSet = statement.executeQuery("SELECT distinct (Room.idRoom), COUNT(T.idTable) AS nbTable, Room.name, Room.WithTables FROM Room JOIN Tabl T ON T.idRoom = Room.idRoom GROUP BY Room.idRoom;");
+			resultSet = statement.executeQuery("SELECT distinct (Room.idRoom), COUNT(T.idTable) AS nbTable, Room.name, Room.WithTables FROM Room LEFT JOIN Tabl T ON T.idRoom = Room.idRoom GROUP BY Room.idRoom;");
 			while (resultSet.next()) {
 				res.add(new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"),resultSet.getInt("nbTable"), resultSet.getInt("Room.WithTables") == 0? false : true));
 			}
@@ -159,10 +159,7 @@ public class RoomDAOMySQL extends RoomDAO {
 		int nbRowsAffected = 0;
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
-			nbRowsAffected = statement.executeUpdate("DELETE FROM Tabl WHERE idRoom ='"+room.getIdRoom()+"'");
-			if(nbRowsAffected == 0){
-				throw new SQLException("Deleting room failed.");
-		    } 
+			statement.executeUpdate("DELETE FROM Tabl WHERE idRoom ='"+room.getIdRoom()+"'");
 			statement.close();
 		}
 		catch (SQLException e) {
