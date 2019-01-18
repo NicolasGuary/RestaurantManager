@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Nicolas GUARY
  */
 package dao;
 import java.sql.Connection;
