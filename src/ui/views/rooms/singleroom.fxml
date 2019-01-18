@@ -29,11 +29,15 @@
    <right>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 10;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="31.0" fitWidth="77.0" preserveRatio="true">
-               <image>
-                  <Image url="@../img/search.png" />
-               </image>
-            </ImageView>
+        	<Button id="updateButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;">
+	        	<graphic>
+		            <ImageView fitHeight="31.0" fitWidth="77.0" preserveRatio="true">
+		               <image>
+		                  <Image url="@../img/search.png" />
+		               </image>
+		            </ImageView>
+	            </graphic>
+            </Button>
         	<Button id="deleteButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: HAND;">
 	        	<graphic>
 		            <ImageView fitHeight="35.0" fitWidth="30.0" preserveRatio="true">

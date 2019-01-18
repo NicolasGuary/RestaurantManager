@@ -43,6 +43,7 @@ public class ReadRoomController {
      */
     public void initialize() {
     	readAll();
+    	rf.setUpdating(false);
     	}
 
 	/**
@@ -66,6 +67,15 @@ public class ReadRoomController {
 					t = "table";
 				}
 				labelPrice.setText(Integer.toString(room.getNbTables()) + " " + t);
+				Button updateBtn = (Button) bp.lookup("#updateButton");
+				updateBtn.setOnAction(new EventHandler<ActionEvent>() {
+		            @Override public void handle(ActionEvent e) {
+		                rf.read(room);
+		                rf.setCurrentRoom(room);
+		        		rf.setUpdating(true);
+		        		router.activate("updateRoom");
+		            }
+		        });
 				Button deleteBtn = (Button) bp.lookup("#deleteButton");
 				deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {
@@ -87,4 +97,11 @@ public class ReadRoomController {
 	public void updateRoom(){
 		router.activate("updateRoom");
     }
+	
+	/**
+	 * Go to homepage
+	 */
+	public void goToHome(){
+		router.activate("home");
+	}
 }

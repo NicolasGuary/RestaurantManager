@@ -29,7 +29,7 @@
          <bottom>
             <HBox prefHeight="30.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: grey; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
+                  <Button onAction="#goToHome" mnemonicParsing="false" style="-fx-background-color: grey; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
                   <Button onAction="#updateRoom" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor: HAND;" text="Create a new room" textFill="WHITE" />
                </children>
             </HBox>

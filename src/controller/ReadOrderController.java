@@ -88,9 +88,15 @@ public class ReadOrderController {
 		        });
 				vb.getChildren().add(bp);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		}
+	}
+	
+	/**
+	 * Go to homepage
+	 */
+	public void goToHome(){
+		router.activate("home");
+	}
 }

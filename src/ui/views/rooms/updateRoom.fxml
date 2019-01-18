@@ -21,7 +21,7 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: center; -fx-spacing: 5;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-padding: 10;" text="Create a new room" textAlignment="CENTER">
+                  <Label fx:id="labelAction" alignment="CENTER" contentDisplay="CENTER" style="-fx-padding: 10;" textAlignment="CENTER">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -36,8 +36,8 @@
                   </HBox>
                   <HBox prefHeight="63.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: orange; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
-                        <Button onAction="#create" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor: HAND;" text="Confirm" textFill="WHITE" />
+                        <Button onAction="#goToList" mnemonicParsing="false" style="-fx-background-color: orange; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
+                        <Button onAction="#confirm" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor: HAND;" text="Confirm" textFill="WHITE" />
                      </children>
                   </HBox>
                </children>

@@ -66,14 +66,14 @@ public class RoomDAOMySQL extends RoomDAO {
 			//We search for the room and all the tables included into it
 			statement = ConnectionToDB.getConnection().createStatement();
 			resultSet = statement.executeQuery("SELECT Room.idRoom, Room.name, Room.WithTables, Tabl.idTable,Tabl.capacity,Tabl.maxCapacity,Tabl.number,Tabl.available,Tabl.idRoom\n" + 
-					"FROM Room, Tabl \n" + 
-					"WHERE Room.idRoom = Tabl.idRoom\n" + 
+					"FROM Room \n" + 
+					"LEFT JOIN Tabl ON Tabl.idRoom = Room.idRoom\n"+ 
 					"AND Room.idRoom ='"+idRoom + "'");
 			
 			//If there's at least one row returned, we create a fresh new Room and a new Table, and add the Table into the array of Tables owned by the room. After the iteration we set the Array of Tables to the room
 			if(resultSet.next()){
 				roomTables.add(new Table(resultSet.getInt("Tabl.idTable"),resultSet.getInt("Tabl.idRoom"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false : true));
-				result = new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"), resultSet.getInt("Room.WithTable") == 0? false : true);
+				result = new Room(resultSet.getInt("Room.idRoom"), resultSet.getString("Room.name"), resultSet.getInt("Room.WithTables") == 0? false : true);
 				//Then we look up for any other Table 
 				while(resultSet.next()) {
 					roomTables.add(new Table(resultSet.getInt("Tabl.idTable"),resultSet.getInt("Tabl.idRoom"), resultSet.getInt("Tabl.number"), resultSet.getInt("Tabl.capacity"), resultSet.getInt("Tabl.maxCapacity"), resultSet.getInt("Tabl.available") == 0? false : true));
@@ -103,7 +103,7 @@ public class RoomDAOMySQL extends RoomDAO {
 		int roomID = -1;
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
-			nbRowsAffected = statement.executeUpdate("INSERT INTO Room (idRoom, name, WithTables) VALUES ((NULL,'"+room.getName()+"','"+isWithTableInt+"')",Statement.RETURN_GENERATED_KEYS);
+			nbRowsAffected = statement.executeUpdate("INSERT INTO Room (idRoom, name, WithTables) VALUES (NULL,'"+room.getName()+"','"+isWithTableInt+"')",Statement.RETURN_GENERATED_KEYS);
 			if(nbRowsAffected >0){
 				try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
 		            if (generatedKeys.next()) {

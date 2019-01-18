@@ -42,6 +42,18 @@ public class RoomFacade {
 	/** The rdao. */
 	private RoomDAO rdao;
 
+
+	/** Updating or creating boolean **/
+	private boolean updating = false;
+	
+	public boolean isUpdating() {
+		return updating;
+	}
+
+	public void setUpdating(boolean updating) {
+		this.updating = updating;
+	}
+	
 	/**
 	 * Instantiates a new room facade.
 	 */
@@ -74,8 +86,26 @@ public class RoomFacade {
 		 this.currentSelection = this.rdao.readAll(); 
 		 return this.currentSelection;
 	 }
-	 	 
+	 
 	 /**
+ 	 * Read.
+ 	 *
+ 	 * @return the array list
+ 	 */
+ 	//Get all the rooms
+	 public Room read(Room room){
+		 return this.rdao.find(room.getIdRoom());
+	 }
+	 	 
+	 public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+	/**
  	 * Gets the current selection.
  	 *
  	 * @return the current selection
@@ -112,6 +142,16 @@ public class RoomFacade {
 	 */
 	public void create(Room room){
 		this.rdao.create(room);
+	}
+	
+	/**
+	 * Updates the table.
+	 *
+	 * @param room the room
+	 */
+	public void update(Room room){
+		this.setUpdating(false);
+		this.rdao.update(room);
 	}
 
 }

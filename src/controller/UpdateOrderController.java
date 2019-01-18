@@ -59,7 +59,7 @@ public class UpdateOrderController {
 	
 	/** The consummables order. */
 	private ArrayList<Consummable> consummablesOrder = new ArrayList<Consummable>();
-	
+
 	/** The orders list. */
 	@FXML
 	VBox ordersList;
