@@ -77,6 +77,12 @@ public class ReadConsummableController {
                             vb.setSpacing(10);
                             scrollP.setContent(vb);
                             vb.setPadding(new Insets(10, 10, 10, 10));
+                			try {
+                				BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/consummable/addconsummable.fxml"));
+                				vb.getChildren().add(bp);
+                			} catch (IOException ex) {
+                				ex.printStackTrace();
+                			}
                     		for (Consummable consummable: c) {
                     			try {
                     				BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/consummable/singleconsummable.fxml"));
@@ -106,6 +112,12 @@ public class ReadConsummableController {
         vb.setSpacing(10);
         scrollP.setContent(vb);
         vb.setPadding(new Insets(10, 10, 10, 10));
+		try {
+			BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/consummable/addconsummable.fxml"));
+			vb.getChildren().add(bp);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 		for (Consummable consummable: currentSelection) {
 			try {
 				BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/consummable/singleconsummable.fxml"));
