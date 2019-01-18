@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Nicolas GUARY
  */
 package dao;
 import java.sql.Connection;
@@ -30,10 +30,12 @@ public class TypeDAOMySQL extends TypeDAO {
      */
     public TypeDAOMySQL() {
     }
-
-    /* (non-Javadoc)
-     * @see dao.TypeDAO#readAll()
-     */
+    
+	/**
+	 * Read all.
+	 *
+	 * @return the array list
+	 */
     public ArrayList<Type> readAll() {
     	ResultSet resultSet;
     	ArrayList<Type> result = new ArrayList<Type>();
