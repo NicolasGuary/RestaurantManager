@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Nathan Traineau
  */
 package model;
 

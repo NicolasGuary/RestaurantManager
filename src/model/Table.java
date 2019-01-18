@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Nicolas GUARY
  */
 package model;
 
