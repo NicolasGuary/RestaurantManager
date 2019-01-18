@@ -9,6 +9,7 @@ import dao.AbstractDAOFactory;
 import dao.ConsummableDAO;
 import dao.MySQLDAOFactory;
 import dao.OrderDAO;
+import dao.UserDAO;
 import model.Consummable;
 import model.Order;
 import model.Table;
@@ -110,4 +111,9 @@ public class OrderFacade {
  	public ArrayList<Order> getCurrentSelection(){
 		 return this.currentSelection;
 	 }
+
+	public OrderDAO getOdao() {
+		// TODO Auto-generated method stub
+		return this.odao;
+	}
 }

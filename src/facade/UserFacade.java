@@ -109,5 +109,27 @@ public class UserFacade extends Observable {
         notifyObservers();
 		
 	}
+
+	public UserDAO getudao() {
+		// TODO Auto-generated method stub
+		return this.udao;
+	}
+
+	public User create(String string, String string2, String string3,
+			String string4, boolean b, boolean c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void addPrivilege(int id1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void delete(Integer next) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
