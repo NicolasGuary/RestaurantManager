@@ -70,7 +70,9 @@ public class GUI extends Application {
     	r.add("readAllConsummables", "views/consummable/consummables.fxml");
     	r.add("readAllOrders", "views/order/listorders.fxml");
     	r.add("readAllRooms", "views/rooms/listRooms.fxml");
+    	r.add("readAllUsers", "views/user/listUser.fxml");
     	r.add("updateOrder", "views/order/updateOrder.fxml");
     	r.add("updateRoom", "views/rooms/updateRoom.fxml");
+    	r.add("createUser", "views/user/createAccount.fxml");
     }
 }

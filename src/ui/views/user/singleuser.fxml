@@ -13,62 +13,26 @@
    <left>
       <HBox prefHeight="33.0" prefWidth="350.0" style="-fx-spacing: 5;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Order #">
+            <Label id="firstnameUser">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label id="idOrder">
+            <Label id="lastnameUser">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-             <Label textFill="#5b5b5b" text="(">
+             <Label textFill="#5b5b5b" id="nicknameUser">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label textFill="#5b5b5b" id="price">
+             <Label textFill="#5b5b5b" id="admin">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label textFill="#5b5b5b" text="€)">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            
-            <Label text=": ">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Table">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label id="idTable">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="-">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label id="capacity">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="30.0" fitWidth="24.0" preserveRatio="true">
-               <image>
-                  <Image url="@../img/user.png" />
-               </image>
-            </ImageView>
          </children>
       </HBox>
    </left>
@@ -79,7 +43,7 @@
 	        	<graphic>
 		            <ImageView fitHeight="31.0" fitWidth="77.0" preserveRatio="true">
 		               <image>
-		                  <Image url="@../img/search.png" />
+		                  <Image url="@../img/key.png" />
 		               </image>
 		            </ImageView>
 	            </graphic>

@@ -33,6 +33,10 @@ public class TopBarController implements Observer {
 	/** The log button. */
 	@FXML
 	private Button logButton;
+
+	/** The users button. */
+	@FXML
+	private Button usersButton;
 	
 	/** The welcome. */
 	@FXML
@@ -59,6 +63,12 @@ public class TopBarController implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+    	if(uf.getConnectedUser().isSuperAdmin()){
+    		usersButton.setVisible(true);
+    	} else {
+    		usersButton.setVisible(false);
+    	}
 	}
 
 	/**
@@ -66,6 +76,13 @@ public class TopBarController implements Observer {
 	 */
 	public void handleLogin(){
 		router.activate("login");
+	}
+	
+	/**
+	 * Handle users.
+	 */
+	public void handleUsers(){
+		router.activate("readAllUsers");
 	}
 
 	/**
@@ -87,14 +104,21 @@ public class TopBarController implements Observer {
 			welcome.setText("Welcome " + uf.getConnectedUser().getUsername() + " !");
 			logButton.setOnAction((event) -> {
 				uf.logout();
+				router.activate("home");
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Disconnect");
 				alert.setHeaderText(null);
 				alert.setContentText("Successfully disconnected");
 				alert.showAndWait();
 			});
+	    	if(uf.getConnectedUser().isSuperAdmin()){
+	    		usersButton.setVisible(true);
+	    	} else {
+	    		usersButton.setVisible(false);
+	    	}
 		}
 		else {
+    		usersButton.setVisible(false);
 			welcome.setText("");
 			image = new Image("ui/views/img/login.png");
 			accountImage.setImage(image);
@@ -102,6 +126,5 @@ public class TopBarController implements Observer {
 				router.activate("login");
 			});
 		}
-		
 	}
 }

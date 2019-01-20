@@ -25,6 +25,15 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER_RIGHT" style="-fx-spacing: 5;">
                <children>
                   <Label fx:id="welcome" style="-fx-text-fill: white;" />
+                  <Button fx:id="usersButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleUsers" style="-fx-background-color: transparent; -fx-cursor: HAND;">
+                     <graphic>
+                        <ImageView fx:id="usersImage" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/users.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="logButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleLogin" style="-fx-background-color: transparent; -fx-cursor: HAND;">
                      <graphic>
                         <ImageView fx:id="accountImage" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">

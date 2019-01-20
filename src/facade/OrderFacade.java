@@ -12,6 +12,7 @@ import dao.OrderDAO;
 import dao.UserDAO;
 import model.Consummable;
 import model.Order;
+import model.Room;
 import model.Table;
 
 /**
@@ -30,6 +31,25 @@ public class OrderFacade {
 	
 	/** The odao. */
 	private OrderDAO odao;
+
+	public Order getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(Order currentOrder) {
+		this.currentOrder = currentOrder;
+	}
+
+	/** Updating or creating boolean **/
+	private boolean updating = false;
+	
+	public boolean isUpdating() {
+		return updating;
+	}
+
+	public void setUpdating(boolean updating) {
+		this.updating = updating;
+	}
 	
 	/**
 	 * Instantiates a new order facade.
@@ -64,6 +84,18 @@ public class OrderFacade {
 		 } 
 		 return this.currentSelection;
 	 }
+ 	
+ 	/**
+ 	 * Read.
+ 	 *
+ 	 * @return the order
+ 	 */
+ 	//Get all the rooms
+	 public Order read(Order order){
+		 Order result = this.odao.find(order.getIdOrder());
+		 return result;
+	 }
+	 	
 	
 	/**
 	 * Find.

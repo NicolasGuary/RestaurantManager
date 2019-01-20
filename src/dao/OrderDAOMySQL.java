@@ -163,11 +163,8 @@ public class OrderDAOMySQL extends OrderDAO {
 			//We look up for all the Order, his Table, and all the Consummables included into it
 			statement = ConnectionToDB.getConnection().createStatement();
 			resultSet = statement.executeQuery("select Orders.idOrder,Orders.discount, Orders.price, Orders.paid, Orders.note, Tabl.idTable,Tabl.idRoom, Tabl.number, Tabl.capacity, Tabl.maxCapacity, Tabl.available, Consummable.idConsummable, Consummable.name, Consummable.price, Consummable.idCategory\n" + 
-					"from Orders, Tabl, Consummable, Contains\n" + 
-					"where Tabl.idTable = Orders.idTable\n" + 
-					"and Orders.idOrder = Contains.idOrder\n" + 
-					"and Contains.idConsummable = Consummable.idConsummable\n" + 
-					"and Orders.idOrder = '"+idOrder + "'");
+					"from Orders JOIN Tabl ON Tabl.idTable = Orders.idTable LEFT JOIN Contains ON Contains.idOrder = Orders.idOrder LEFT JOIN Consummable ON Consummable.idConsummable = Contains.idConsummable\n" + 
+					"where Orders.idOrder = '"+idOrder + "'");
 			
 			//If there's at least one row returned, we create a new Order and a new Table, and add the Consummable into the array of Consummable
 			if(resultSet.next()){
@@ -196,13 +193,10 @@ public class OrderDAOMySQL extends OrderDAO {
 	public void update(Order order) {
 		int nbRowsAffected = 0;
 		ArrayList<String> queries = new ArrayList<>();
-		int paidInt = order.isPaid()? 0:1;
+		int paidInt = order.isPaid()? 1:0;
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
-			nbRowsAffected = statement.executeUpdate("UPDATE Orders SET discount ='"+order.getDiscount()+"', price= '"+order.getPrice()+"', paid='"+ paidInt +"', note='"+order.getNote()+"',idTable'"+order.getTable().getIdTable()+"' WHERE Orders.idOrder = '"+order.getIdOrder()+"'");
-			if(nbRowsAffected == 0){
-				throw new SQLException("Updating order failed.");
-		    } 
+			statement.executeUpdate("UPDATE Orders SET discount ='"+order.getDiscount()+"', price= '"+order.getPrice()+"', paid='"+ paidInt +"', note='"+order.getNote()+"',idTable='"+order.getTable().getIdTable()+"' WHERE Orders.idOrder = '"+order.getIdOrder()+"'");
 			statement.close();
 		}
 		catch (SQLException e) {
@@ -214,10 +208,7 @@ public class OrderDAOMySQL extends OrderDAO {
 		    //We drop all the consummables previously contained by this Order and then we add all the new one
 		try {
 			statement = ConnectionToDB.getConnection().createStatement();
-			nbRowsAffected = statement.executeUpdate("DELETE FROM Contains WHERE idOrder = '"+order.getIdOrder()+"'");
-			if(nbRowsAffected == 0){
-				throw new SQLException("Updating contains failed.");
-		    } 
+			statement.executeUpdate("DELETE FROM Contains WHERE idOrder = '"+order.getIdOrder()+"'");
 			statement.close();
 		}
 		catch (SQLException e) {

@@ -49,12 +49,23 @@ public class ReadOrderController {
      */
     public void initialize() {
     	readAll();
+    	of.setUpdating(false);
     }
 
     /**
+     * Create order.
+     */
+    public void createOrder(){
+		router.activate("updateOrder");
+    }
+    
+    /**
      * Update order.
      */
-    public void updateOrder(){
+    public void updateOrder(Order order){
+        Order res = of.read(order);
+        of.setCurrentOrder(res);
+		of.setUpdating(true);
 		router.activate("updateOrder");
     }
 
@@ -79,6 +90,12 @@ public class ReadOrderController {
 				labelCapacity.setText(Integer.toString(order.getTable().getCapacity()));
 				Label labelIdTable = (Label) bp.lookup("#idTable");
 				labelIdTable.setText(Integer.toString(order.getTable().getNumber()));
+				Button updateButton = (Button) bp.lookup("#updateButton");
+				updateButton.setOnAction(new EventHandler<ActionEvent>() {
+		            @Override public void handle(ActionEvent e) {
+		            	updateOrder(order);
+		            }
+		        });
 				Button deleteBtn = (Button) bp.lookup("#deleteButton");
 				deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {

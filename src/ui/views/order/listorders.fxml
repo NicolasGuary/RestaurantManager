@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReadOrderController">
    <center>
@@ -21,9 +22,13 @@
             </Label>
          </top>
          <bottom>
+         <HBox prefHeight="30.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;" BorderPane.alignment="CENTER">
+               <children>
               <Button onAction="#goToHome" mnemonicParsing="false" style="-fx-background-color: grey; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
-              <Button onAction="#updateOrder" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor: HAND;" text="Create a new order" textFill="WHITE" BorderPane.alignment="CENTER" />
-         </bottom>
+              <Button onAction="#createOrder" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor: HAND;" text="Create a new order" textFill="WHITE" />
+               </children>
+            </HBox>
+            </bottom>
          <center>
          	<ScrollPane fx:id="scrollP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>

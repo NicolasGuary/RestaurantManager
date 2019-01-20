@@ -10,9 +10,11 @@ import java.util.Optional;
 
 import model.Consummable;
 import model.Order;
+import model.Room;
 import model.Table;
 import facade.ConsummableFacade;
 import facade.OrderFacade;
+import facade.RoomFacade;
 import facade.TableFacade;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -34,6 +36,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -53,6 +56,9 @@ public class UpdateOrderController {
 	
 	/** The of. */
 	private OrderFacade of = OrderFacade.getInstance();
+
+	/** The rf. */
+	private RoomFacade rf = RoomFacade.getInstance();
 	
 	/** The tf. */
 	private TableFacade tf = TableFacade.getInstance();
@@ -75,6 +81,10 @@ public class UpdateOrderController {
 	/** The table input. */
 	@FXML
 	ChoiceBox<Integer> tableInput;
+
+	/** The table input. */
+	@FXML
+	ChoiceBox<String> roomInput;
 	
 	/** The note input. */
 	@FXML
@@ -90,6 +100,11 @@ public class UpdateOrderController {
 	/** The test. */
 	Label test;
 	
+	@FXML
+	Label labelAction;
+
+	/** The table list. */
+	private ArrayList<Room> roomList;
 	
 	/** The table list. */
 	private ArrayList<Table> tableList;
@@ -108,6 +123,20 @@ public class UpdateOrderController {
     	for(Table table : tableList){
     		tableInput.getItems().add(table.getNumber());
     	}
+    	this.roomList = rf.readAll();
+    	for(Room room : roomList){
+    		roomInput.getItems().add(room.getName());
+    	}
+    	roomInput.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+    	      @Override
+    	      public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+    	    	tableInput.getItems().clear();
+    	        tableList = tf.readAll(roomList.get((Integer) number2).getIdRoom());
+    	    	for(Table table : tableList){
+    	    		tableInput.getItems().add(table.getNumber());
+    	    	}
+    	      }
+    	    });
     	// force the field to be numeric only
     	discountInput.textProperty().addListener(new ChangeListener<String>() {
     	    public void changed(ObservableValue<? extends String> observable, String oldValue, 
@@ -117,6 +146,22 @@ public class UpdateOrderController {
     	        }
     	    }
     	});
+    	
+    	if(of.isUpdating()){
+    		labelAction.setText("Update Order");
+    		Order order = of.getCurrentOrder();
+    		if((order.getConsummablesOrder().size()>0) && (order.getConsummablesOrder().get(0) != null)){
+        		for(Consummable consummable : order.getConsummablesOrder()){
+            		addConsummable(consummable);
+            	}
+    		}
+    		discountInput.setText(Float.toString(order.getDiscount()));
+    		isPaidInput.selectedProperty().set(order.isPaid());
+    		tableInput.setValue(order.getTable().getNumber());
+    		noteInput.setText(order.getNote());
+    	} else {
+    		labelAction.setText("Create Order");
+    	}
     }
     
     /**
@@ -158,8 +203,28 @@ public class UpdateOrderController {
 		}
     }
 	
+    /**
+     *  Confirms the update or create
+     */
+    public void confirm(){
+    	if(this.tableInput.getValue() != null){
+        	if(of.isUpdating()){
+            	update();
+        	} else {
+        		create();
+        	}
+    	} else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please fill the table input");
+
+    		alert.showAndWait();
+    	}
+    }
+    
 	/**
-	 * Creates the.
+	 * Creates the update
 	 */
 	public void create(){
 		String discString = discountInput.getText();
@@ -196,7 +261,22 @@ public class UpdateOrderController {
 	/**
 	 * Update.
 	 */
-	public void update() {}
+	public void update() {
+		String discString = discountInput.getText();
+		float discountValue = 0;
+		if (!discString.isEmpty()){
+			discountValue = Float.parseFloat(discountInput.getText());
+		}
+		boolean isPaidValue = isPaidInput.selectedProperty().get();
+		int tableValue = tableInput.getValue();
+		String noteValue = noteInput.getText();
+		Table t = new Table(tableValue, 1, 0, 0, 0, false);
+		//Read all fields from the view and create an Order object
+		Order order = new Order(of.getCurrentOrder().getIdOrder(), discountValue, 0, isPaidValue, noteValue, consummablesOrder, t);
+		order.computePrice();
+		OrderFacade.getInstance().update(order);
+		router.activate("readAllOrders");
+	}
 	
 	/**
 	 * Delete.

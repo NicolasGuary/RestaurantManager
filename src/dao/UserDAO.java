@@ -19,7 +19,7 @@ public abstract class UserDAO extends DAO<User> {
 	 * @param password the password
 	 * @return true, if successful
 	 */
-	public abstract boolean find(String nick, String password);
+	public abstract User find(String nick, String password);
 
 	/**
 	 * Read all.
@@ -27,5 +27,8 @@ public abstract class UserDAO extends DAO<User> {
 	 * @return the array list
 	 */
 	public abstract ArrayList<User> readAll();
+
+	public abstract boolean addPrivilege(User user);
+	public abstract boolean removePrivilege(User user);
 	
 }

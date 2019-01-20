@@ -54,7 +54,7 @@ public class UpdateRoomController {
     }
 
     /**
-     * Creates the.
+     * Confirms the update or create
      */
     public void confirm(){
     	if(rf.isUpdating()){

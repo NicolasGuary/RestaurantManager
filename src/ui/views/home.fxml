@@ -19,14 +19,14 @@
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center; -fx-padding: 10px; -fx-spacing: 10px;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
+                  <Pane fx:id="paneOrder" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
                      <children>
                         <Label layoutX="54.0" layoutY="178.0" text="Orders">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button onAction="#handleReadOrder" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
+                        <Button fx:id="buttonOrder" onAction="#handleReadOrder" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;" textAlignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -37,14 +37,14 @@
                         </Button>
                      </children>
                   </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
+                  <Pane fx:id="paneConsummable" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
                      <children>
                         <Label layoutX="54.0" layoutY="178.0" text="Menu">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button onAction="#handleReadConsummable" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
+                        <Button fx:id="buttonConsummable" onAction="#handleReadConsummable" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -55,14 +55,14 @@
                         </Button>
                      </children>
                   </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
+                  <Pane fx:id="paneRoom" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e5e5e5; -fx-background-color: white;">
                      <children>
                         <Label layoutX="54.0" layoutY="178.0" text="Rooms">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button onAction="#handleReadRoom" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
+                        <Button fx:id="buttonRoom"  onAction="#handleReadRoom" layoutX="22.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-cursor: HAND;">
                            <graphic>
                               <ImageView fitHeight="121.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

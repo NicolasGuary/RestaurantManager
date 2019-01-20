@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUserController">
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-padding: 10;" text="Create an account" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center; -fx-spacing: 10;">
+                     <children>
+                        <VBox prefHeight="48.0" prefWidth="145.0">
+                           <children>
+                              <Label text="Firstname" />
+                              <TextField fx:id="firstnameField" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="48.0" prefWidth="145.0">
+                           <children>
+                              <Label text="Lastname" />
+                              <TextField fx:id="lastnameField" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label text="Username" />
+                  <TextField fx:id="usernameField" style="-fx-max-width: 300;" />
+                  <Label style="-fx-padding: 10 0 0 0;" text="Password" />
+                  <PasswordField fx:id="passwordField" style="-fx-max-width: 300;" />
+                  <Label style="-fx-padding: 10 0 0 0;" text="Confirm Password" />
+                  <PasswordField fx:id="confirmPasswordField" style="-fx-max-width: 300;" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center; -fx-spacing: 10;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+                        <Button mnemonicParsing="false" onAction="#confirm" text="Confirm" />
+                     </children>
+                  </HBox>
+                  <Label style="-fx-padding: 10 0 0 0;" text="" />
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

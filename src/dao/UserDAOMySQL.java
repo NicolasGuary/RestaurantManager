@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Category;
 import model.User;
 import jdbc.ConnectionToDB;
 
@@ -32,20 +33,21 @@ public class UserDAOMySQL extends UserDAO {
 	 * @param password the password
 	 * @return true, if successful
 	 */
- 	public boolean find(String username, String password) {
-	    	boolean found = false;
+ 	public User find(String username, String password) {
 	    	ResultSet resultSet;
+	    	User tmp = null;
 			try {
 				statement = ConnectionToDB.getConnection().createStatement();
 				resultSet = statement.executeQuery("select * from user where login = '"+username+"' and password = '"+password+ "'");
-		        found = resultSet.next();
+				resultSet.first();
+				tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin") );
 		        statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return found;
+			return tmp;
 	    }
 	    
     /**
@@ -81,7 +83,7 @@ public class UserDAOMySQL extends UserDAO {
 	    	int nbRowsAffected = 0;
 			try {
 				statement = ConnectionToDB.getConnection().createStatement();
-				nbRowsAffected = statement.executeUpdate("delete from user where id = '"+user.getIdUser() + "'");
+				nbRowsAffected = statement.executeUpdate("delete from user where idUser = '"+user.getIdUser() + "'");
 				if(nbRowsAffected == 0){
 					throw new SQLException("Deleting user failed.");
 			    } 
@@ -106,7 +108,33 @@ public class UserDAOMySQL extends UserDAO {
 	    	int nbRowsAffected = 0;
 			try {
 				statement = ConnectionToDB.getConnection().createStatement();
-				nbRowsAffected = statement.executeUpdate("update user set isSuperAdmin = true where id = '"+user.getIdUser() + "'");
+				nbRowsAffected = statement.executeUpdate("update user set isSuperAdmin = 1 where idUser = '"+user.getIdUser() + "'");
+				if(nbRowsAffected == 0){
+					throw new SQLException("Updating user failed.");
+			    } 
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+	            close();
+	        }
+			return found;
+	    }
+    	
+    	 /**
+    	 * Remove the privilege.
+    	 *
+    	 * @param user the user
+    	 * @return true, if successful
+    	 */
+    	public boolean removePrivilege(User user) {
+	    	boolean found = false;
+	    	int nbRowsAffected = 0;
+			try {
+				statement = ConnectionToDB.getConnection().createStatement();
+				nbRowsAffected = statement.executeUpdate("update user set isSuperAdmin = 0 where idUser = '"+user.getIdUser() + "'");
 				if(nbRowsAffected == 0){
 					throw new SQLException("Updating user failed.");
 			    } 
@@ -126,31 +154,21 @@ public class UserDAOMySQL extends UserDAO {
     	 * @see dao.DAO#create(java.lang.Object)
     	 */
     	public User create(User user) {
-	    	ResultSet resultSet;
-			int isSuperAdmin = user.isSuperAdmin()? 1:0;
-			int isCo = user.isConnected()? 1:0;
 	    	User tmp = null;
 				try {
 					statement = ConnectionToDB.getConnection().createStatement();
-					resultSet = statement.executeQuery("Insert into user (login,password,firstName,lastname,isSuperAdmin,isConnected) values"
-				            + " ('"
-				        
-				            + user.getUsername()
-				            + "', '"
-				            + user.getPassword()
-				            + "', '"
-				            + user.getFirstname()
-				            + "', '"
-				            + user.getLastname()
-				            + "', '"
-				            + isSuperAdmin
-				            + "', '"
-				            + isCo
-				            + "')");
-					
-					resultSet.first();
-					tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin") );			
-					statement.close();
+					int nbRowsAffected = statement.executeUpdate("INSERT INTO user (idUser, login, password, firstName, lastName, isSuperAdmin) VALUES (NULL,'"+user.getUsername()+"','"+user.getPassword()+"','"+user.getFirstname()+"','"+user.getLastname()+"',0)",Statement.RETURN_GENERATED_KEYS);
+					if(nbRowsAffected >0){
+						try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+				            if (generatedKeys.next()) {
+				            	int userID = generatedKeys.getInt(1);
+				            	tmp = new User(userID, user.getUsername() , user.getLastname(), user.getFirstname(), user.getPassword(), false );
+				            }
+				            else {
+				                throw new SQLException("Creating user failed, no ID obtained.");
+				            }
+				        }
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} catch (Exception e) {

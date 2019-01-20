@@ -44,8 +44,10 @@ public class UserFacade extends Observable {
      * @return true, if successful
      */
     public boolean login(String login, String password){
-    	if(udao.find(login, password)){
-    		userConnected = new User(login, true);
+    	User user = udao.find(login, password);
+    	if(user != null){
+    		user.setConnected(true);
+    		userConnected = user;
             setChanged();
             notifyObservers();
     		return true;
@@ -111,23 +113,23 @@ public class UserFacade extends Observable {
 	}
 
 	public UserDAO getudao() {
-		// TODO Auto-generated method stub
 		return this.udao;
 	}
 
-	public User create(String string, String string2, String string3,
-			String string4, boolean b, boolean c) {
-		// TODO Auto-generated method stub
-		return null;
+	public User create(String username,String lastname, String firstname, String password) {
+		User user = new User(1, username, lastname, firstname, password, false);
+		return this.udao.create(user);
 	}
 
-	public void addPrivilege(int id1) {
-		// TODO Auto-generated method stub
-		
+	public boolean addPrivilege(User user) {
+		return this.udao.addPrivilege(user);
+	}
+	public boolean removePrivilege(User user) {
+		return this.udao.removePrivilege(user);
 	}
 
-	public void delete(Integer next) {
-		// TODO Auto-generated method stub
+	public void delete(User user) {
+		this.udao.delete(user);
 		
 	}
 

@@ -90,9 +90,8 @@ public class RoomFacade {
 	 /**
  	 * Read.
  	 *
- 	 * @return the array list
+ 	 * @return the room
  	 */
- 	//Get all the rooms
 	 public Room read(Room room){
 		 return this.rdao.find(room.getIdRoom());
 	 }
