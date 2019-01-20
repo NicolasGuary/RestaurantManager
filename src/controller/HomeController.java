@@ -57,15 +57,18 @@ public class HomeController {
 	 * Handle read consummable.
 	 */
 	public void handleReadConsummable(){
-    	if(uf.getConnectedUser().isConnected()){
-    		router.activate("readAllConsummables");
-    	} else {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-    		alert.setTitle("Error");
-    		alert.setHeaderText(null);
-    		alert.setContentText("You may connect first.");
-    		alert.showAndWait();
-    	}
+//    	if(uf.getConnectedUser().isConnected()){
+//    		router.activate("readAllConsummables");
+//    	} else {
+//    		Alert alert = new Alert(AlertType.INFORMATION);
+//    		alert.setTitle("Error");
+//    		alert.setHeaderText(null);
+//    		alert.setContentText("You may connect first.");
+//    		alert.showAndWait();
+//    	}
+    	
+		router.activate("readAllConsummables");
+    	
 	}
 
 	/**
@@ -79,14 +82,15 @@ public class HomeController {
 	 * Handle read room.
 	 */
 	public void handleReadRoom(){
-    	if(uf.getConnectedUser().isConnected()){
-    		router.activate("readAllRooms");
-    	} else {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-    		alert.setTitle("Error");
-    		alert.setHeaderText(null);
-    		alert.setContentText("You may connect first.");
-    		alert.showAndWait();
-    	}
+//    	if(uf.getConnectedUser().isConnected()){
+//    		router.activate("readAllRooms");
+//    	} else {
+//    		Alert alert = new Alert(AlertType.INFORMATION);
+//    		alert.setTitle("Error");
+//    		alert.setHeaderText(null);
+//    		alert.setContentText("You may connect first.");
+//    		alert.showAndWait();
+//    	}
+		router.activate("readAllRooms");
 	}
 }

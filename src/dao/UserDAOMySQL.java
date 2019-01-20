@@ -179,7 +179,7 @@ public class UserDAOMySQL extends UserDAO {
 			} 
 	    
     	/**
-    	 * Read all.
+    	 * Read all users
     	 *
     	 * @return the array list
     	 */
@@ -188,7 +188,7 @@ public class UserDAOMySQL extends UserDAO {
 	    	ArrayList<User> result = new ArrayList<User>();
 				try {
 					statement = ConnectionToDB.getConnection().createStatement();
-					resultSet = statement.executeQuery("select * from user");
+					resultSet = statement.executeQuery("select * from user order by isSuperAdmin desc");
 					while(resultSet.next()){
 						User tmp = new User(resultSet.getInt("idUser"),resultSet.getString("user.login"),resultSet.getString("user.lastname"),resultSet.getString("user.firstname"),resultSet.getString("user.password"),resultSet.getBoolean("user.isSuperAdmin"));
 						result.add(tmp);

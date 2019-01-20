@@ -41,9 +41,7 @@ public class GUI extends Application {
 	 */
 	@Override
     public void start(Stage primaryStage) throws Exception{
-		
 		GUI.primaryStage = primaryStage;
-		
         Parent root = FXMLLoader.load(getClass().getResource("views/index.fxml"));
         primaryStage.setTitle("Restaurant Manager");
         primaryStage.setScene(new Scene(root, 600, 400));
@@ -68,6 +66,7 @@ public class GUI extends Application {
     	r.add("login", "views/user/login.fxml");
     	r.add("home", "views/home.fxml");
     	r.add("readAllConsummables", "views/consummable/consummables.fxml");
+    	r.add("createConsummable", "views/consummable/createConsummable.fxml");
     	r.add("readAllOrders", "views/order/listorders.fxml");
     	r.add("readAllRooms", "views/rooms/listRooms.fxml");
     	r.add("readAllUsers", "views/user/listUser.fxml");

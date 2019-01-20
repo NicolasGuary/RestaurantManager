@@ -5,7 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUserController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateConsummableController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
          <opaqueInsets>
@@ -28,46 +27,46 @@
                      </font>
                   </Label>
                   <Label text="Name" />
-                  <TextField fx:id="usernameField" style="-fx-max-width: 300;" />
+                  <TextField fx:id="nameConsummable" style="-fx-max-width: 300;" />
                   <Separator prefWidth="200.0" style="-fx-padding: 5 0 0 0;" />
-                  <CheckBox mnemonicParsing="false" prefHeight="36.0" prefWidth="300.0" text="Existing Category" />
+                  <CheckBox onAction="#checkExisting" fx:id="existingBool" mnemonicParsing="false" prefHeight="36.0" prefWidth="300.0" text="Existing Category" />
                   <HBox prefHeight="67.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
                         <VBox prefHeight="48.0" prefWidth="145.0">
                            <children>
                               <Label style="-fx-padding: 5 0 0 0;" text="Type" />
-                              <ChoiceBox prefWidth="150.0" />
+                              <ChoiceBox fx:id="typeChoice1" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="54.0" prefWidth="145.0">
                            <children>
                               <Label style="-fx-padding: 5 0 0 0;" text="Category" />
-                              <ChoiceBox prefWidth="150.0" />
+                              <ChoiceBox fx:id="categoryChoice1" prefWidth="150.0" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
-                  <CheckBox mnemonicParsing="false" prefHeight="33.0" prefWidth="299.0" text="New Category" />
+                  <CheckBox onAction="#checkNewCat" fx:id="newCategBool" mnemonicParsing="false" prefHeight="33.0" prefWidth="299.0" text="New Category" />
                   <HBox prefHeight="66.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
                         <VBox prefHeight="48.0" prefWidth="145.0">
                            <children>
                               <Label style="-fx-padding: 5 0 0 0;" text="Type" />
-                              <ChoiceBox prefWidth="150.0" />
+                              <ChoiceBox fx:id="typeChoice2" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="48.0" prefWidth="145.0">
                            <children>
                               <Label style="-fx-padding: 5 0 0 0;" text="Category name" />
-                              <TextField fx:id="usernameField1" style="-fx-max-width: 300;" />
+                              <TextField fx:id="categNameField" style="-fx-max-width: 300;" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
                   <Label prefHeight="13.0" prefWidth="26.0" style="-fx-padding: 5 0 0 0;" text="Price" />
-                  <PasswordField fx:id="passwordField" style="-fx-max-width: 300;" />
+                  <TextField fx:id="priceField" style="-fx-max-width: 300;" />
                   <HBox prefHeight="55.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />

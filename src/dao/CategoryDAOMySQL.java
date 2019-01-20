@@ -114,6 +114,7 @@ public class CategoryDAOMySQL extends CategoryDAO {
 		            if (generatedKeys.next()) {
 		            	catID = generatedKeys.getInt(1);
 		            	res = new Category(catID,category.getIdType(),category.getNameCategory());
+		            	System.out.println(res);
 		            }
 		            else {
 		                throw new SQLException("Creating category failed, no ID obtained.");

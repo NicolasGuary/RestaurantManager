@@ -4,17 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Separator?>
 
-<BorderPane fx:controller="controller.UpdateRoomController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateRoomController">
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 10;" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-padding: 0 0 10 0;" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -31,13 +31,42 @@
                   <HBox prefHeight="37.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 15;">
                      <children>
                         <Label text="Room with tables ?" />
-                        <CheckBox fx:id="withTableInput" mnemonicParsing="false" />
+                        <CheckBox onAction="#toggleTable" fx:id="withTableInput" mnemonicParsing="false" />
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" style="-fx-padding: 5 0 0 0;" />
+                  <HBox fx:id="tableManag1" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 10;">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Number" />
+                              <TextField fx:id="numberTable"/>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Capacity" />
+                              <TextField fx:id="capacityTable"/>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Max Capacity" />
+                              <TextField fx:id="capacityMaxTable" />
+                           </children>
+                        </VBox>
+                        <Button onAction="#addTable" mnemonicParsing="false" text="Add" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="tableManag2" prefHeight="183.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
+                     <children>
+                        <ScrollPane fx:id="scrollP" prefHeight="183.0" prefWidth="592.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="63.0" prefWidth="580.0" style="-fx-alignment: center; -fx-spacing: 10;">
                      <children>
-                        <Button onAction="#goToList" mnemonicParsing="false" style="-fx-background-color: orange; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
-                        <Button onAction="#confirm" mnemonicParsing="false" style="-fx-background-color: green; -fx-cursor: HAND;" text="Confirm" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#goToList" style="-fx-background-color: orange; -fx-cursor: HAND;" text="Cancel" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#confirm" style="-fx-background-color: green; -fx-cursor: HAND;" text="Confirm" textFill="WHITE" />
                      </children>
                   </HBox>
                </children>

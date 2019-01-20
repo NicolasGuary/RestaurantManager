@@ -14,6 +14,7 @@ import dao.TypeDAO;
 import model.Type;
 import model.Category;
 import model.Consummable;
+import model.Order;
 
 /**
  * The Class ConsummableFacade.
@@ -120,4 +121,28 @@ public class ConsummableFacade {
 		return this.categories;
 	}
 
+	/**
+ 	 * Creates the consummable
+ 	 *
+ 	 * @param consummable
+ 	 */
+ 	public void create(Consummable cons) {
+		 this.cdao.create(cons);
+	 }
+ 	
+ 	/**
+ 	 * Creates the category
+ 	 *
+ 	 * @param consummable
+ 	 * @return 
+ 	 */
+ 	public Category createCategory(Category cat) {
+		 return this.catdao.create(cat);
+	 }
+
+	public void delete(Consummable consummable) {
+		this.cdao.delete(consummable);
+		
+	}
+	
 }

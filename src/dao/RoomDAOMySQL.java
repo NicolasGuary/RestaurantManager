@@ -68,7 +68,7 @@ public class RoomDAOMySQL extends RoomDAO {
 			resultSet = statement.executeQuery("SELECT Room.idRoom, Room.name, Room.WithTables, Tabl.idTable,Tabl.capacity,Tabl.maxCapacity,Tabl.number,Tabl.available,Tabl.idRoom\n" + 
 					"FROM Room \n" + 
 					"LEFT JOIN Tabl ON Tabl.idRoom = Room.idRoom\n"+ 
-					"AND Room.idRoom ='"+idRoom + "'");
+					"WHERE Room.idRoom ='"+idRoom + "'");
 			
 			//If there's at least one row returned, we create a fresh new Room and a new Table, and add the Table into the array of Tables owned by the room. After the iteration we set the Array of Tables to the room
 			if(resultSet.next()){

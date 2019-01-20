@@ -61,17 +61,19 @@ public class ReadRoomController {
 				BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/rooms/singleroom.fxml"));
 				Label labelNameRoom = (Label) bp.lookup("#nameRoom");
 				labelNameRoom.setText(room.getName());
-				Label labelPrice = (Label) bp.lookup("#nbTable");
-				String t = "tables";
-				if(room.getNbTables() <2){
-					t = "table";
+				if(room.isWithTables()){
+					String t = "tables";
+					if(room.getNbTables() <2){
+						t = "table";
+					}
+					Label labelTable = (Label) bp.lookup("#nbTable");
+					labelTable.setText(Integer.toString(room.getNbTables()) + " " + t);
 				}
-				labelPrice.setText(Integer.toString(room.getNbTables()) + " " + t);
 				Button updateBtn = (Button) bp.lookup("#updateButton");
 				updateBtn.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {
-		                rf.read(room);
-		                rf.setCurrentRoom(room);
+		        		Room res = rf.read(room);
+		                rf.setCurrentRoom(res);
 		        		rf.setUpdating(true);
 		        		router.activate("updateRoom");
 		            }

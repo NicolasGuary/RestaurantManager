@@ -89,4 +89,13 @@ public class TableFacade {
  	public Table getCurrentTable(){
 		 return this.currentTable;
 	 }
+ 	
+ 	 /**
+ 	 * Create the table.
+ 	 *
+ 	 * @return the current table
+ 	 */
+ 	public Table create(Table table){
+		 return this.tdao.create(table);
+	 }
 }

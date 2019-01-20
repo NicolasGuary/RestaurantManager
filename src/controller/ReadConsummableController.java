@@ -90,6 +90,15 @@ public class ReadConsummableController {
                     				labelNameConsummable.setText(consummable.getNameConsummable());
                     				Label labelPrice = (Label) bp.lookup("#price");
                     				labelPrice.setText(Float.toString(consummable.getPrice()));
+                    				Button deleteBtn = (Button) bp.lookup("#deleteConsummable");
+                    				deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
+                    		            @Override public void handle(ActionEvent e) {
+                    		            	cf.delete(consummable);
+                    		        		router.activate("readAllConsummables");
+                    		            }
+                    		        });
+                    				
+                    				
                     				vb.getChildren().add(bp);
                     			} catch (IOException ex) {
                     				ex.printStackTrace();
@@ -114,6 +123,12 @@ public class ReadConsummableController {
         vb.setPadding(new Insets(10, 10, 10, 10));
 		try {
 			BorderPane bp = FXMLLoader.load(getClass().getResource("../ui/views/consummable/addconsummable.fxml"));
+			Button createBtn = (Button) bp.lookup("#createConsummable");
+			createBtn.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override public void handle(ActionEvent e) {
+	        		router.activate("createConsummable");
+	            }
+	        });
 			vb.getChildren().add(bp);
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -140,5 +155,4 @@ public class ReadConsummableController {
 	public void readAll(String category){
 		
 	}
-
 }
