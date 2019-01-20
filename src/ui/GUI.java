@@ -17,6 +17,8 @@ public class GUI extends Application {
 
     /** The primary stage. */
     private static Stage primaryStage = null;
+    private final int PREF_MIN_WIDTH = 600;
+    private final int PREF_MIN_HEIGHT = 420;
     
     /**
      * Gets the primary stage.
@@ -45,6 +47,8 @@ public class GUI extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("views/index.fxml"));
         primaryStage.setTitle("Restaurant Manager");
         primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setMinHeight(PREF_MIN_HEIGHT);
+        primaryStage.setMinWidth(PREF_MIN_WIDTH);
         primaryStage.show();
     }
 
