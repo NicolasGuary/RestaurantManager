@@ -133,7 +133,7 @@ public class UpdateOrderController {
     	    	tableInput.getItems().clear();
     	        tableList = tf.readAll(roomList.get((Integer) number2).getIdRoom());
     	    	for(Table table : tableList){
-    	    		tableInput.getItems().add(table.getNumber());
+        	    	tableInput.getItems().add(table.getNumber());
     	    	}
     	      }
     	    });
@@ -152,7 +152,9 @@ public class UpdateOrderController {
     		Order order = of.getCurrentOrder();
     		if((order.getConsummablesOrder().size()>0) && (order.getConsummablesOrder().get(0) != null)){
         		for(Consummable consummable : order.getConsummablesOrder()){
-            		addConsummable(consummable);
+        			if(consummable.getNameConsummable() != null){
+                		addConsummable(consummable);
+        			}
             	}
     		}
     		discountInput.setText(Float.toString(order.getDiscount()));
@@ -212,7 +214,10 @@ public class UpdateOrderController {
 	            	 }
 	            	vb.getChildren().clear();
 	            	for(Consummable c : consummablesOrderNew){
-	            		addConsummable(c);
+
+	        			if(c.getNameConsummable() != null){
+	                		addConsummable(c);
+	        			}
 	            	}
 	            	consummablesOrder = consummablesOrderNew;
 	            }

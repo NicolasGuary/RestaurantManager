@@ -14,6 +14,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -98,7 +100,9 @@ public class UpdateRoomController {
         	withTableInput.selectedProperty().set(rf.getCurrentRoom().isWithTables());
         	ArrayList<Table> listTable = rf.getCurrentRoom().getTables();
         	for(Table table : listTable){
-        		displayTable(table);
+        		if(table.getNumber() != 0){
+            		displayTable(table);
+        		}
         	}
     	} else {
     		labelAction.setText("Create a new room");
@@ -197,7 +201,9 @@ public class UpdateRoomController {
 	            	 }
 	            	vb.getChildren().clear();
 	            	for(Table tableToDisplay : tableList){
-	            		displayTable(tableToDisplay);
+	            		if(tableToDisplay.getNumber()!=0){
+		            		displayTable(tableToDisplay);
+	            		}
 	            	}
 	            	tableRoom = tableList;
 	            }
@@ -217,10 +223,18 @@ public class UpdateRoomController {
     	int numberTableValue = Integer.parseInt(numberTable.getText());
     	int capacityTableValue = Integer.parseInt(capacityTable.getText());
     	int capacityMaxTableValue = Integer.parseInt(capacityMaxTable.getText());
-    	Table t = new Table(1, rf.getCurrentRoom().getIdRoom(), numberTableValue, capacityTableValue, capacityMaxTableValue, true);
-    	Table tNew = tf.create(t);
-    	displayTable(tNew);
-    	this.tableList.add(tNew);
+    	if(numberTableValue != 0){
+        	Table t = new Table(1, rf.getCurrentRoom().getIdRoom(), numberTableValue, capacityTableValue, capacityMaxTableValue, true);
+        	Table tNew = tf.create(t);
+        	displayTable(tNew);
+        	this.tableList.add(tNew);
+    	} else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Table number can't be 0");
+    		alert.showAndWait();
+    	}
     }
     
     /**
