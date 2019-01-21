@@ -195,6 +195,29 @@ public class UpdateOrderController {
 			labelIdOrder.setText(cons.getNameConsummable());
 			Label labelPriceC = (Label) bp.lookup("#priceConsummable");
 			labelPriceC.setText("(" +cons.getPrice() + "e)");
+			
+			Button removeButton = (Button) bp.lookup("#removeButton");
+			removeButton.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override public void handle(ActionEvent e) {
+	            	
+					ArrayList<Consummable> consummablesOrderNew = of.getCurrentOrder().getConsummablesOrder();
+					ArrayList<Consummable> deleteTable = new ArrayList<>();
+	            	for (Consummable cons2 : consummablesOrderNew) {
+	            	    if (cons2.getIdConsummable() == cons.getIdConsummable()) {
+	            	    	deleteTable.add(cons2);
+	            	    }
+	            	 }
+	            	for (Consummable cons2 : deleteTable) {
+	            		consummablesOrderNew.remove(cons2);
+	            	 }
+	            	vb.getChildren().clear();
+	            	for(Consummable c : consummablesOrderNew){
+	            		addConsummable(c);
+	            	}
+	            	consummablesOrder = consummablesOrderNew;
+	            }
+	        });
+			
 			vb.getChildren().add(bp);
 			consummablesOrder.add(cons);
 		} catch (IOException e) {
