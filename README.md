@@ -7,6 +7,7 @@
 ## How to compile and execute RestaurantManager?
 ###### Please note: you might get warnings regarding JavaFX runtime, they can be ignored, otherwise you will need JavFX v10.0.1
 ###### As this projet use a JDBC connector, it should be included into the classpath.
+###### You will require a Java version (like 1.8) that has JavaFX, otherwise you should import it
 ### First Method: Use the provided .sh scripts
 
 If rights are not granted to execute the .sh scripts use: `chmod +x RestaurantManager.sh`
