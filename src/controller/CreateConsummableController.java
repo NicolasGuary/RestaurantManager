@@ -1,3 +1,7 @@
+/*
+ * @author Quentin FRANCE
+ * 
+ */
 package controller;
 
 import java.util.ArrayList;

@@ -1,4 +1,5 @@
 /*
+ * @author Quentin FRANCE
  * 
  */
 package controller;
