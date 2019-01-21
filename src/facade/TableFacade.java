@@ -98,4 +98,13 @@ public class TableFacade {
  	public Table create(Table table){
 		 return this.tdao.create(table);
 	 }
+ 	
+ 	/**
+ 	 * Delete the table.
+ 	 *
+ 	 * @return the current table
+ 	 */
+ 	public void delete(Table table){
+		 this.tdao.delete(table);
+	 }
 }

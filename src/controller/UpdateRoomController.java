@@ -193,6 +193,7 @@ public class UpdateRoomController {
 	            	 }
 	            	for (Table tableToDelete : deleteTable) {
 	            		tableList.remove(tableToDelete);
+	            		tf.delete(tableToDelete);
 	            	 }
 	            	vb.getChildren().clear();
 	            	for(Table tableToDisplay : tableList){
