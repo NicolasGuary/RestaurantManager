@@ -1,8 +1,6 @@
 # RestaurantManager
 
-## Admin account for RestaurantManager:
-### Username: tibi
-### Password: admin
+Java architecture and JavaFX project.
 
 ## How to compile and execute RestaurantManager?
 ###### Please note: you might get warnings regarding JavaFX runtime, they can be ignored, otherwise you will need JavFX v10.0.1
